@@ -1,0 +1,219 @@
+.login_header {
+    margin-top: 20px;
+    h3 {
+        font-size: 16px;
+        color: $c22;
+    }
+    p {
+        color: $c99;
+        margin-top: 10px;
+    }
+    .go_login {
+        float: right;
+    }
+    a {
+        color: $cf60;
+        font-weight: bold;
+        &:hover {
+            color: $red;
+        }
+    }
+}
+
+.login_box {
+    padding: 50px;
+    border: 1px solid $cdd;
+    margin-top: 10px;
+    position: relative;
+    dl {
+        display: table;
+        margin-bottom: 20px;
+        dt,
+        dd {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        dt {
+            width: 140px;
+            text-align: right;
+            font-size: 14px;
+        }
+    }
+    .getpassowrd_link {
+        margin-left: 10px;
+        text-decoration: none;
+        i {
+            color: $c55;
+            margin-right: 5px;
+        }
+    }
+    label {
+        cursor: pointer;
+    }
+    .prompt {
+        width: 400px;
+        margin-bottom: 20px;
+    }
+}
+
+.input_text {
+    height: 16px;
+    line-height: 16px;
+    padding: 6px;
+    border: 1px solid $cdd;
+    width: 200px;
+    &.w100 {
+        width: 100px;
+    }
+}
+
+.input_select {
+    height: 18px;
+    line-height: 18px;
+    padding: 6px;
+    border: 1px solid $cdd;
+    max-width: 180px;
+}
+
+.input_textarea {
+    height: 80px;
+    line-height: 16px;
+    padding: 6px;
+    border: 1px solid $cdd;
+    width: 450px;
+}
+
+.input_button {
+    height: 28px;
+    background: $blue;
+    padding: 0 10px;
+    color: $cff;
+    border: none;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0 0 0 20px rgba($cff, .1) inset;
+    }
+}
+
+.input_submit {
+    width: 140px;
+    height: 40px;
+    border: none;
+    color: $cff;
+    font-size: 16px;
+    letter-spacing: 5px;
+    text-indent: 5px;
+    // background: $cf60;
+    cursor: pointer;
+    background: $cca151d;
+    &:hover {
+        box-shadow: 0 0 0 20px rgba($cff, .1) inset;
+    }
+}
+
+.input_reset {
+    width: 140px;
+    height: 40px;
+    border: none;
+    background: darken($yellow, 10%);
+    color: $cff;
+    font-size: 16px;
+    letter-spacing: 5px;
+    text-indent: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    &:hover {
+        background: lighten($yellow, 5%);
+    }
+}
+
+.login_show {
+    width: 320px;
+    position: absolute;
+    right: 120px;
+    top: 50px;
+    line-height: 1.6;
+    p {
+        padding: 5px 0;
+    }
+    strong {
+        font-size: 14px;
+    }
+    em {
+        color: $green;
+        font-size: 16px;
+    }
+}
+
+.reg_btn {
+    width: 140px;
+    height: 40px;
+    border: none;
+    background: $blue;
+    font-size: 16px;
+    letter-spacing: 5px;
+    text-indent: 5px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    &:link,
+    &:focus,
+    &:active,
+    &:visited {
+        color: $cff;
+        text-decoration: none;
+    }
+    &:hover {
+        box-shadow: 0 0 0 20px rgba($cff, .1) inset;
+    }
+}
+
+.next_step {
+    width: 140px;
+    height: 40px;
+    border: none;
+    background: $blue;
+    font-size: 16px;
+    letter-spacing: 5px;
+    text-indent: 5px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    text-decoration: none;
+    &:link,
+    &:focus,
+    &:active,
+    &:visited {
+        color: $cff;
+        text-decoration: none;
+    }
+    &:hover {
+        box-shadow: 0 0 0 20px rgba($cff, .1) inset;
+    }
+}
+
+.goback_btn {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid $cdd;
+    background: $cfa;
+    cursor: pointer;
+    @include dz();
+    &:hover {
+        background: $red;
+        color: $cff;
+        border: 1px solid darken($red, 10%);
+    }
+}
+
+.prompt {
+    background: lighten($yellow, 35%);
+    margin-top: 5px;
+    border: 1px solid lighten($yellow, 10%);
+    padding: 5px 15px;
+    line-height: 2;
+    color: darken($yellow, 30%);
+}

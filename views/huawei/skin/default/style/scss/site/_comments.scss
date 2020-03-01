@@ -1,0 +1,13 @@
+.bar_goods_big {
+	a {
+		display: block;text-decoration: none;height: 300px;position: relative;
+	}
+	img {display: block;width: 205px;height: 205px;margin: 10px auto;}
+	h5 {font-weight: normal;font-size: 13px;line-height: 20px;height: 40px;overflow: hidden;padding: 0 12px;}
+	span {height: 20px;line-height: 20px;text-align: center;display: block;}
+	em,.star_box {position: absolute;bottom: 15px;}
+	em {left:10px;font-size: 15px;color: darken($red,10%);font-weight: bold;}
+	.star_box {right: 10px;bottom: 10px;}
+	li {border-bottom: 1px solid $cdd;}
+	li:last-child {border-bottom: none;}
+}

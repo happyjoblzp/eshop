@@ -1,0 +1,65 @@
+<h4 class="alert_info">{$this->_siteConfig->name}给您的商品货款结算账单展示</h4>
+
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">货款结算单列表</h3>
+
+		<ul class="tabs">
+			<li><input type="button" class="alt_btn" onclick="window.location.href='{url:/seller/bill_edit}';" value="申请结算货款" /></li>
+		</ul>
+	</header>
+
+	<table class="tablesorter" cellspacing="0">
+		<colgroup>
+			<col width="180px" />
+			<col width="155px" />
+			<col width="80px" />
+			<col width="155px" />
+			<col />
+			<col width="100px" />
+		</colgroup>
+
+		<thead>
+			<tr>
+				<th>订单的结算起止</th>
+				<th>申请时间</th>
+				<th>结算状态</th>
+				<th>结算时间</th>
+				<th>管理员回复</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+
+		<tbody>
+            {set:$queryObj=Api::run('getListBySellerBill');$resultData=$queryObj->find()}
+            {foreach:items=$resultData}
+			<tr>
+				<td>{$item['start_time']} ~ {$item['end_time']}</td>
+				<td>{$item['apply_time']}</td>
+				<td>
+					{if:$item['is_pay'] == 1}
+					<label class="green">已结算</label>
+					{else:}
+					<label class="orange">未结算</label>
+					{/if}
+				</td>
+				<td>{$item['pay_time']}</td>
+				<td>{$item['pay_content']}</td>
+				<td>
+					<a href="{url:/seller/bill_edit/id/$item[id]}">
+						<img title="修改" alt="修改" src="{skin:images/main/icn_edit.png}" />
+					</a>
+
+					{if:$item['is_pay'] == 0}
+					<a href="javascript:delModel({link:'{url:/seller/bill_del/id/$item[id]}'})">
+						<img src="{skin:images/main/icn_del.png}" title="删除" />
+					</a>
+					{/if}
+				</td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+
+	{$queryObj->getPageBar()}
+</article>

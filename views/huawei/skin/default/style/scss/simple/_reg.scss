@@ -1,0 +1,10 @@
+
+
+.reg_box {
+	padding: 50px;border: 1px solid $cdd;margin-top: 10px;position: relative;
+	dl {
+		display: table;margin-bottom: 20px;
+		dt,dd {display: table-cell;vertical-align: middle;}
+		dt {width: 140px;text-align: right;font-size: 14px;}
+	}
+}

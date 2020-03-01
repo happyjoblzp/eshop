@@ -1,0 +1,38 @@
+<h4 class="alert_info">商城支持的物流方式进行配置，自定义运费价格</h4>
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">系统配送方式</h3>
+	</header>
+
+	<table class="tablesorter" cellspacing="0">
+		<colgroup>
+			<col width="250px" />
+			<col />
+		</colgroup>
+
+		<thead>
+			<tr>
+				<th>配送方式</th>
+				<th>物流保价</th>
+				<th>货到付款</th>
+				<th>是否配置</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+
+		<tbody>
+            {set:$queryObj=Api::run('getListBySellerDelivery');$resultData=$queryObj->find()}
+            {foreach:items=$resultData}
+            {set:$data = Api::run('getSellerDeliveryExtendRowById',array('delivery_id'=>$item["id"]))}
+			<tr>
+				<td>{$item['name']}</td>
+				<td>{if:$item['is_save_price']==1}是{else:}否{/if}</td>
+				<td>{if:$item['type']==1}是{else:}否{/if}</td>
+				<td>{if:$data}<b class="green">已配置</b>{else:}<b class="red">未配置</b>{/if}</td>
+				<td><a href="{url:/seller/delivery_edit/id/$item[id]}"><img class="operator" src="{skin:images/main/icn_settings.png}" alt="配置" /></a></td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+	{$queryObj->getPageBar()}
+</article>

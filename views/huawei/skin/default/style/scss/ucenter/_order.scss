@@ -1,0 +1,38 @@
+
+.order_schedule {
+	border-top: none;padding: 15px;margin-bottom: 15px;
+	background: lighten($yellow,37%);line-height: 2;
+	ol {
+		counter-reset: num;color: darken($yellow,20%);border-bottom: 1px dotted $yellow;padding-bottom: 10px;margin-bottom: 10px;
+
+		li {
+			height: 24px;line-height: 24px;position: relative;padding-left: 24px;
+			&:before {
+				content: counter(num);counter-increment: num;display: block;position: absolute;
+				width: 16px;height: 16px;border-radius: 50%;background: $red;color: $cff;text-align: center;
+				line-height: 16px;left: 0;top: 4px;font-size: 12px;
+			}
+			&:after {
+				width: 2px;height: 8px;background: lighten($red,20%);content: "";display: block;position: absolute;left: 7px;top: 20px;
+			}
+			&:last-child:after {display: none;}
+		}
+	}
+	.btn {
+		input {
+			display: inline-block;border: 1px solid;padding: 5px 10px;color: $cff;cursor: pointer;@include dz();
+		}
+		&.btn_green input {
+			border-color: $green;background: lighten($green,10%);
+			&:hover {
+				border-color:darken($green,10%);background: $green;
+			}
+		}
+		&.btn_orange input {
+			border-color: $orange;background: lighten($orange,10%);
+			&:hover {
+				border-color:darken($orange,10%);background: $orange;
+			}
+		}
+	}
+}

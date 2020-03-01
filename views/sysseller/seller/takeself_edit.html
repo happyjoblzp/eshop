@@ -1,0 +1,79 @@
+{js:artTemplate}
+{js:areaSelect}
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">自提点编辑</h3>
+	</header>
+
+	<form action='{url:/seller/takeself_update}' method='post' name='takeself' enctype='multipart/form-data'>
+		<input type='hidden' name='id' value=""/>
+		<div class="module_content">
+			<fieldset>
+				<label>自提点名称</label>
+			    <input type='text' name='name' value='' pattern='required' alt="填写名称" />
+			</fieldset>
+
+			<fieldset>
+				<label>LOGO图片</label>
+				<div class="box">
+					<input name="logo" type="file" />
+				</div>
+				<div class="box">
+					{if:isset($this->takeselfRow['logo']) && $this->takeselfRow['logo']}
+					<img src="{url:$this->takeselfRow['logo']}" style='width:220px;border:1px solid #ccc' />
+					{/if}
+				</div>
+			</fieldset>
+
+			<fieldset>
+			    <label>地区选择</label>
+			    <div class="box">
+			        <select name="province" child="city,area" class="auto"></select>
+			        <select name="city" child="area" class="auto"></select>
+			        <select name="area" class="auto"></select>
+			    </div>
+			</fieldset>
+
+			<fieldset>
+				<label>详细地址</label>
+				<input type='text' name='address' value='' pattern='required'  />
+			</fieldset>
+
+			<fieldset>
+				<label>固定电话</label>
+				<input type='text' name='phone' value='' pattern='phone' />
+			</fieldset>
+
+			<fieldset>
+				<label>手机号码</label>
+				<input type='text' name='mobile' value='' pattern='mobi'  />
+			</fieldset>
+
+			<fieldset>
+				<label>排序</label>
+				<input type='text' name='sort' value='' pattern='int' />
+				<label class="tip">* 数据排序,数字越小越靠前</label>
+			</fieldset>
+		</div>
+
+		<footer>
+			<div class="submit_link">
+				<input type="submit" class="alt_btn" value="确 定" />
+				<input type="reset" value="重 置" />
+			</div>
+		</footer>
+	</form>
+</article>
+
+<script type='text/javascript'>
+//DOM加载完毕
+$(function(){
+	//修改模式
+	var formObj = new Form('takeself');
+	formObj.init({echo:JSON::encode($this->takeselfRow)});
+
+	//地区联动插件
+	var areaInstance = new areaSelect('province');
+	areaInstance.init({echo:JSON::encode($this->takeselfRow)});
+});
+</script>

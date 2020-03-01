@@ -1,0 +1,27 @@
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">消息通知查看</h3>
+	</header>
+	<div class="module_content">
+		<fieldset>
+			<label>标题：</label>
+			<div class="box">{$messageRow['title']}</div>
+		</fieldset>
+
+		<fieldset>
+			<label>发送时间：</label>
+			<div class="box">{$messageRow['time']}</div>
+		</fieldset>
+
+		<fieldset>
+			<label>内容：</label>
+			<div class="box">{$messageRow['content']}</div>
+		</fieldset>
+	</div>
+
+	<footer>
+		<div class="submit_link">
+			<input type="submit" class="alt_btn" value="返 回" onclick="window.location.href='{url:/seller/message_list}';" />
+		</div>
+	</footer>
+</article>

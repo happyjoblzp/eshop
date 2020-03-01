@@ -1,0 +1,83 @@
+{set:$seller_id = $this->seller['seller_id']}
+<h4 class="alert_info">统计{$this->_siteConfig->name}应付给您的商品货款，每个商品的手续费明细在申请结算后才会看到</h4>
+<h4 class="alert_warning">只有<在线支付>(非货到付款) 并且已经付款的商品才会统计到这里</h4>
+
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">商品货款明细</h3>
+		<ul class="tabs">
+			<li><input type="button" class="alt_btn" onclick="window.location.href='{url:/seller/bill_edit}';" value="申请结算货款" /></li>
+		</ul>
+	</header>
+
+	<table class="tablesorter" cellspacing="0">
+		<colgroup>
+			<col />
+			<col width="150px" />
+			<col width="100px" />
+			<col width="100px" />
+			<col width="100px" />
+			<col width="100px" />
+			<col width="105px" />
+			<col width="90px" />
+		</colgroup>
+
+		<thead>
+			<tr>
+				<th>订单号</th>
+				<th>下单时间</th>
+				<th>订单金额</th>
+				<th>平台促销活动</th>
+				<th>退款金额</th>
+				<th>分销佣金金额</th>
+				<th>结算状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{set:
+				$page = (isset($_GET['page'])&&(intval($_GET['page'])>0))?intval($_GET['page']):1;
+				$orderGoodsQuery = CountSum::getSellerGoodsFeeQuery($seller_id);
+				$orderGoodsQuery->page = $page;
+			}
+
+			{foreach: items = $orderGoodsQuery->find()}
+			{set:$countData = CountSum::countSellerOrderFee(array($item))}
+			<tr>
+				<td>{$item['order_no']}</td>
+				<td>{$item['create_time']}</td>
+				<td>￥{$countData['orderAmountPrice']}</td>
+				<td>￥{$countData['platformFee']}</td>
+				<td>￥{$countData['refundFee']}</td>
+				<td>￥{$countData['commissionFee']}</td>
+				<td>
+					{if:$item['is_checkout'] == 1}
+					<label class="green">已结算</label>
+					{else:}
+					<label class="orange">未结算</label>
+					{/if}
+				</td>
+				<td>
+				    <a href="{url:/seller/order_show/id/$item['id']}"><img title="订单详情" alt="订单详情" src="{skin:images/main/icn_settings.png}" /></a>
+                    {if:$item['servicefee_amount'] > 0}
+                    <a href="javascript:servicefee({$item['id']});" title="订单手续费明细"><img title="订单手续费明细" alt="订单手续费明细" src="{skin:images/main/icn_tags.png}" /></a>
+                    {/if}
+                </td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+
+	{$orderGoodsQuery->getPageBar()}
+</article>
+
+<script type="text/javascript">
+//订单手续费明细
+function servicefee(order_id)
+{
+	var urlVal = "{url:/market/order_goods_servicefee_list/id/@order_id@/seller_id/@seller_id@}";
+	urlVal = urlVal.replace("@order_id@",order_id).replace("@seller_id@",{$this->seller['seller_id']});
+	art.dialog.open(urlVal,{title:'订单手续费明细',width:'80%',height:'500px'});
+}
+</script>

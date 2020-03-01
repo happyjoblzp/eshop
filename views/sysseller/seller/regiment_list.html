@@ -1,0 +1,61 @@
+{set:$seller_id = $this->seller['seller_id'];}
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">团购列表</h3>
+		<ul class="tabs">
+			<li><input type="button" class="alt_btn" onclick="window.location.href='{url:/seller/regiment_edit}';" value="添加团购" /></li>
+			<li><input type="button" class="alt_btn" onclick="selectAll('id[]');" value="全选" /></li>
+			<li><input type="button" class="alt_btn" onclick="delModel();" value="批量删除" /></li>
+		</ul>
+	</header>
+
+	<form method='post' action='{url:/seller/regiment_del}'>
+		<table class="tablesorter" cellspacing="0">
+			<colgroup>
+				<col width="40px" />
+				<col />
+				<col width="280px" />
+				<col width="70px" />
+				<col width="80px" />
+				<col width="90px" />
+				<col width="100px" />
+			</colgroup>
+
+			<thead>
+				<tr>
+					<th>选择</th>
+					<th>标题</th>
+					<th>团购时间</th>
+					<th>排序</th>
+					<th>状态</th>
+					<th>销售情况</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+
+			<tbody>
+                {set:$queryObj=Api::run('getSellerListByRegiment');$resultData=$queryObj->find()}
+                {foreach:items=$resultData}
+				<tr>
+					<td><input type='checkbox' name='id[]' value='{$item['id']}' /></td>
+					<td><a href='{url:/site/groupon/id/$item[id]}' target='_blank' class="orange" title="{$item['title']}">{$item['title']}</a></td>
+					<td>{$item['start_time']} ～ {$item['end_time']}</td>
+					<td>{$item['sort']}</td>
+					<td>{echo:active::statusRegiment($item)}</td>
+					<td>{$item['sum_count']}/{$item['store_nums']}</td>
+					<td>
+						<a href='{url:/seller/regiment_edit/id/$item[id]}'>
+							<img src="{skin:images/main/icn_edit.png}" alt="修改" title="修改" />
+						</a>
+
+						<a href='javascript:void(0)' onclick="delModel({link:'{url:/seller/regiment_del/id/$item[id]}'});">
+							<img src="{skin:images/main/icn_del.png}" alt="删除" title="删除" />
+						</a>
+					</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</form>
+	{$queryObj->getPageBar()}
+</article>

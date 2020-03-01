@@ -1,0 +1,104 @@
+// base by fungleo
+html {font-size: 12px;background:$cff;}
+body {color: $c55;line-height: 1;}
+body,button, input, select, textarea {
+	// font-family:tahoma,"Helvetica Neue", Arial,"\5FAE\8F6F\96C5\9ED1","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;*font-family:"\5FAE\8F6F\96C5\9ED1";
+  font-family:  "Microsoft Yahei", Helvetica, Arial, sans-serif;
+}
+.gehang {width: 10px;height: 10px;overflow: hidden;text-indent: -9999px;clear: both;display: block;}
+.block {display: block;}
+.none {display:none}
+.clear {clear: both;}
+
+.fl {float: left;}
+.fr {float: right;}
+.tl {text-align: left;}
+.tr {text-align: right;}
+.tc {text-align: center;}
+.bold {font-weight: bold;}
+.cf{
+	zoom:1;
+	&:before,&:after {content:"";display:table;}
+	&:after {clear:both;}
+}
+
+
+// chrome scrollbar
+::-webkit-scrollbar {width: 8px;height: 10px;}
+::-webkit-scrollbar-thumb {min-height: 20px;background: rgba($c00,0.5);}
+::-webkit-scrollbar-track-piece{background: rgba($c00,0.2);}
+
+.web_ {
+	width: 100%;min-width: 1200px;
+	@extend .cf;
+}
+
+.web {
+	width: 1200px;margin-left: auto;margin-right: auto;
+	@extend .cf;
+}
+
+
+// gray
+.c55 {color:$c55}
+.c22 {color:$c22}
+.c33 {color:$c33}
+.c99 {color:$c99}
+.c77 {color:$c77}
+.c00 {color:$c00}
+.cff {color:$cff}
+.caa {color:$caa}
+.ccc {color:$ccc}
+.cf0 {color:$cf0}
+.cdd {color:$cdd}
+.cee {color:$cee}
+.cf9 {color:$cf9}
+.cf7 {color:$cf7}
+.cfa {color:$cfa}
+.cf2 {color:$cf2}
+.cf60 {color:$cf60}
+// colour
+.red {color:$red}
+.red2 {color:$red2}
+.blue {color:$blue}
+.sblue {color:$sblue}
+.qblue {color:$qblue}
+.green {color:$green}
+.cyan {color:$cyan}
+.gold {color:$gold}
+.pink {color:$pink}
+.pink2 {color:$pink2}
+.yellow {color:$yellow}
+.orange {color:$orange}
+
+// gray
+.bg_c55 {background:$c55}
+.bg_c22 {background:$c22}
+.bg_c33 {background:$c33}
+.bg_c99 {background:$c99}
+.bg_c77 {background:$c77}
+.bg_c00 {background:$c00}
+.bg_cff {background:$cff}
+.bg_caa {background:$caa}
+.bg_ccc {background:$ccc}
+.bg_cf0 {background:$cf0}
+.bg_cdd {background:$cdd}
+.bg_cee {background:$cee}
+.bg_cf9 {background:$cf9}
+.bg_cf7 {background:$cf7}
+.bg_cfa {background:$cfa}
+.bg_cf2 {background:$cf2}
+.bg_cf60 {background:$cf60}
+// colour
+.bg_red {background:$red}
+.bg_red2 {background:$red2}
+.bg_blue {background:$blue}
+.bg_sblue {background:$sblue}
+.bg_qblue {background:$qblue}
+.bg_green {background:$green}
+.bg_cyan {background:$cyan}
+.bg_gold {background:$gold}
+.bg_pink {background:$pink}
+.bg_pink2 {background:$pink2}
+.bg_yellow {background:$yellow}
+.bg_orange {background:$orange}

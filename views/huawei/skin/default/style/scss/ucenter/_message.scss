@@ -1,0 +1,52 @@
+.show_message {
+    text-align: left;
+    padding: 0 10px;
+    strong {
+        font-size: 15px;
+        color: $cf60;
+    }
+    p {
+        line-height: 2;
+    }
+    * {
+        max-width: 100%;
+    }
+}
+
+.user_form {
+    padding-top: 40px;
+    position: relative;
+    margin-bottom: 10px;
+    dl {
+        display: table;
+        margin-bottom: 20px;
+        width: 100%;
+        line-height: 1.6;
+        dt,
+        dd {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        dt {
+            width: 140px;
+            text-align: right;
+            font-size: 14px;
+            padding: 0 15px;
+            font-weight: bold;
+            color: $c55;
+            &.vt {
+                vertical-align: top;
+            }
+        }
+    }
+    label {
+        cursor: pointer;
+        margin-right:8px;
+        &:hover {
+            color: $cf60;
+        }
+    }
+    input:checked+* {
+        color: $red;
+    }
+}

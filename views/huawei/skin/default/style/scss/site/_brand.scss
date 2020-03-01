@@ -1,0 +1,25 @@
+
+.brand_list {
+	ul {@extend .cf;padding-bottom: 18px;margin-left: -9px;}
+	li {
+		float: left;width: 210px;margin-left: 18px;margin-top: 18px;height: 122px;
+		a,img,strong {display: block;}
+		a {
+			position: relative;border: 1px solid $cdd;width: 208px;
+			&:hover {
+				strong {height: 120px;line-height: 120px;}
+			}
+		}
+		strong {
+			position: absolute;height: 24px;line-height: 24px;padding: 0 10px;@include dz();
+			background: rgba($c00,.5);color: $cff;left: 0;right: 0;bottom: 0;text-align: center;
+		}
+	}
+}
+
+.barnd_info {
+	padding: 10px 0;
+	@extend .cf;line-height: 2;font-size: 14px;text-indent: 2em;color: $c99;
+	.brand_logo {float: left;margin-right: 15px;box-shadow: 0 0 3px darken($cf0,10%);}
+	* {max-width: 100%;}
+}

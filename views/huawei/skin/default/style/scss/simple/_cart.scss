@@ -1,0 +1,329 @@
+#preorderDetail li{float:left;text-align:center;padding:5px 5px;margin:5px 5px;background-color:#eeff}
+.cart_prompts {
+    padding: 10px 20px;
+    line-height: 2;
+    border: 1px solid rgba($yellow, .3);
+    background: rgba($yellow, .06);
+    margin-bottom: 10px;
+    strong {
+        color: $red;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    ol {
+        counter-reset: num;
+        li {
+            color: $red;
+            &:before {
+                content: counter(num) ". ";
+                counter-increment: num;
+            }
+        }
+    }
+}
+
+.cart_table,
+.cart_item_goods {
+    h3 {
+        font-size: 14px;
+        color: $c22;
+        margin-bottom: 10px;
+        i {
+            margin-right: 10px;
+            color: $red;
+        }
+    }
+    table {
+        width: 100%;
+        text-align: center;
+        border: 1px solid $ccc;
+        img {
+            display: block;
+            width: 66px;
+            height: 66px;
+            padding: 3px;
+            border: 1px solid $cdd;
+            margin: 10px auto;
+        }
+        td,
+        th {
+            border-bottom: 1px solid $cdd;
+            img {
+                display: inline-block;
+            }
+        }
+        th {
+            border-left: 1px solid $cdd;
+            height: 36px;
+            font-size: 14px;
+            background: $cfa;
+            &:first-child {
+                border-left: none;
+            }
+        }
+        td:nth-child(3) {
+            text-align: left;
+        }
+        em {
+            font-weight: bold;
+            color: $red;
+        }
+        .stats {
+            padding: 10px;
+            line-height: 2;
+            text-align: right;
+            em {
+                font-size: 16px;
+            }
+        }
+        p {
+            padding-top: 4px;
+            line-height: 1.6;
+        }
+    }
+}
+
+.cart_btn {
+    height: 50px;
+    position: relative;
+    margin-bottom: 50px;
+    .clear_cart_btn {
+        position: absolute;
+        left: 0;
+        top: 14px;
+        cursor: pointer;
+        background: $cfa;
+        position: relative;
+        padding: 0 20px;
+        @include jb($cff, $cf0);
+        width: 100px;
+        height: 32px;
+        color: $c55;
+        line-height: 32px;
+        font-size: 16px;
+        cursor: pointer;
+        border: 1px solid $cdd;
+        i {
+            color: $c99;
+        }
+    }
+    .go_back_btn {
+        border: 1px solid $cdd;
+        background: $cfa;
+        position: absolute;
+        ;
+        right: 200px;
+        top: 14px;
+        font-size: 16px;
+        cursor: pointer;
+        @include jb($cff, $cf0);
+        width: 120px;
+        height: 32px;
+        text-align: center;
+        line-height: 32px;
+        i {
+            color: $c99;
+        }
+    }
+    .gopay_btn {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        margin: 0;
+    }
+}
+
+.cart_2,
+.cart_3 {
+    width: 1198px;
+    border: 1px solid $cdd;
+    background: $cff;
+    @extend .cf;
+    margin: 0 auto;
+    .cart_header {
+        background: $cfa;
+        border-top: 1px solid $cff;
+        border-bottom: 1px solid $cdd;
+        height: 32px;
+        line-height: 32px;
+        font-size: 14px;
+        text-indent: 20px;
+        font-weight: bold;
+    }
+}
+
+.cart_item {
+    margin: 20px;
+    h3 {
+        border-top: 2px solid $red;
+        padding: 10px;
+        color: $cf60;
+        font-size: 15px;
+        font-weight: bold;
+    }
+}
+
+.cart_item_addr {
+    padding: 10px 20px;
+    border: 1px solid rgba($yellow, .3);
+    background: $cff;
+    // background: rgba($yellow,.06);
+    h4 {
+        border-bottom: 1px solid rgba($yellow, .3);
+        font-size: 14px;
+        padding: 8px 0;
+        margin-bottom: 5px;
+    }
+    .addr_list {
+        line-height: 2;
+        span {
+            color: $blue;
+            cursor: pointer;
+            &:hover {
+                color: $cf60;
+            }
+        }
+    }
+}
+
+.cart_item_express,
+.cart_item_pay,
+.cart_item_msg {
+    table {
+        width: 100%;
+        &,
+        th,
+        td {
+            border: 1px solid $cdd;
+        }
+        th,
+        td {
+            padding: 8px;
+            line-height: 1.6;
+        }
+        th,
+        {
+            background: $cfa;
+            text-align: left;
+            padding-left: 30px;
+        }
+        tfoot td {
+            background: $cf0;
+        }
+    }
+}
+
+.cart_item_count {
+    padding: 20px;
+    background: rgba($yellow, .06);
+    .count {
+        font-size: 14px;
+        strong {
+            color: $red;
+        }
+    }
+    table {
+        margin-top: 20px;
+        width: 100%;
+        border-top: 1px solid $yellow;
+        td {
+            padding-top: 20px
+        }
+        .all_count {
+            text-align: right;
+            em {
+                font-size: 16px;
+                color: $red;
+            }
+        }
+    }
+}
+
+.use_ticket_btn {
+    cursor: pointer;
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 13px;
+    color: $red;
+    i {
+        color: $cf60;
+    }
+}
+
+.cart_topay_btn,
+.gobank_pay_btn {
+    display: block;
+    float: right;
+    overflow: hidden;
+    background: $cf60;
+    position: relative;
+    margin: 20px 20px 20px 0;
+    padding: 0 20px;
+    min-width: 140px;
+    height: 40px;
+    color: $cff;
+    line-height: 40px;
+    cursor: pointer;
+    input {
+        display: none;
+    }
+    span {
+        display: block;
+        font-size: 16px;
+        text-align: center;
+    }
+}
+
+.gobank_pay_btn {
+    width: 120px;
+    margin: 20px 0;
+    float: left;
+}
+
+.cart_3_con {
+    width: 1000px;
+    margin: 20px auto;
+    h3 {
+        font-size: 14px;
+        padding: 10px;
+    }
+    table {
+        width: 100%;
+        &,
+        th,
+        td {
+            border: 1px solid $cdd;
+        }
+        th,
+        td {
+            padding: 8px;
+            line-height: 1.6;
+        }
+        th,
+        {
+            background: $cfa;
+        }
+    }
+    .show_more {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        color: $blue;
+        cursor: pointer;
+        &:hover {
+            color: $cf60;
+        }
+    }
+}
+
+.cart_3_status {
+    padding: 10px;
+    border-bottom: 1px solid $yellow;
+    strong {
+        font-size: 14px;
+        font-weight: bold;
+    }
+    a {
+        float: right;
+    }
+}

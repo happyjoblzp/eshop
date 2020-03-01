@@ -1,0 +1,21 @@
+.sale_list {
+	@extend .cf;
+	li {
+		float: left;width: 220px;padding: 10px;
+		a {
+			display: block;background: $cff;width: 220px;overflow: hidden;
+			@include dz();position: relative;top: 0;
+			&:hover{
+				top: -5px;
+				border-color: $red;text-decoration: none;
+				box-shadow: 3px 5px 15px rgba($c99,.5);
+			}
+		}
+		img {width: 200px;height: 200px;display: block;margin: 10px;}
+		strong,em,del {display: block;padding: 0 14px;}
+		strong {@include oneline(28px);margin-bottom: 40px;}
+		em,del {position: absolute;bottom: 15px;}
+		em {left: 0;color: $cf60;font-size: 15px;font-weight: bold;}
+		del {text-decoration: line-through;color: $c99;right: 0;}
+	}
+}

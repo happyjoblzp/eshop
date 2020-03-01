@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	{js:jquery}
+	{js:validate}
+	{js:dialog}
+	{js:artTemplate}
+	{js:form}
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link href="{webroot:public/css/twitter-bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+	<div class="form-group">
+		<label>选择主题模板：</label>
+		<p class="form-control-static">选择当前系统支持的商家主题模板，对商家主页进行个性化的显示</p>
+	</div>
+
+	<div class="form-group">
+		<label>主题模板：</label>
+		<select name="sellerTheme" onchange="changeTheme();" class="form-control" style="width:30%">
+			<option value="">无</option>
+			{foreach:items=$themeData key=$theme}
+			<option value="{$theme}" {if:$sellerDeRow && $theme==$sellerDeRow['theme']}selected="selected"{/if}>{$theme}</option>
+			{/foreach}
+		</select>
+	</div>
+
+	<script type='text/html' id='adListTemplate'>
+		<%for(var item in templateData){%>
+		<%ad = templateData[item]%>
+		<div class="col-xs-4">
+			<a href="{url:/seller/ad_position_edit/name/<%=ad%>}">【<%=ad%>】</a>
+		</div>
+		<%}%>
+	</script>
+
+	<div class="form-group">
+		<label>模板广告位：</label>
+		<div class="row" id="adList"></div>
+	</div>
+
+	<div class="form-group">
+		<input type="button" class="btn btn-success" value="确 定" onclick="art.dialog.close();" />
+	</div>
+</div>
+
+<script type="text/javascript">
+//选择主题
+function changeTheme()
+{
+	var theme = $('[name="sellerTheme"]').val();
+	$.getJSON("{url:/seller/decorate_setting}",{"theme":theme});
+    changeAdvShow(theme);
+}
+
+//广告展示
+function changeAdvShow(theme)
+{
+    var adListTemplate = {};
+    var themeData = {echo:JSON::encode($themeData)};
+    if (themeData.hasOwnProperty(theme))
+    {
+        adListTemplate = themeData[theme]['ad'];
+    }
+    var adListTemplateHtml = template.render('adListTemplate',{'templateData':adListTemplate});
+    $('#adList').html(adListTemplateHtml != '' ? adListTemplateHtml : '<div class="col-xs-4">暂无</div>');
+}
+
+//初始化广告位
+changeAdvShow("{$sellerDeRow['theme']}");
+</script>
+</body>
+</html>

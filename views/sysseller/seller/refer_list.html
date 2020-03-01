@@ -1,0 +1,54 @@
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">咨询列表</h3>
+		<ul class="tabs">
+			<li><input type="button" class="alt_btn" onclick="selectAll('id[]');" value="全选" /></li>
+			<li><input type="button" class="alt_btn" onclick="delModel();" value="批量删除" /></li>
+		</ul>
+	</header>
+
+	<form action="{url:/seller/refer_del}" method="post" name="goodsForm">
+		<table class="tablesorter" cellspacing="0">
+			<colgroup>
+				<col width="25px" />
+				<col />
+				<col width="120px" />
+				<col width="130px" />
+				<col width="120px" />
+				<col width="130px" />
+				<col width="80px" />
+			</colgroup>
+
+			<thead>
+				<tr>
+					<th class="header"></th>
+					<th class="header">商品名字</th>
+					<th class="header">咨询人</th>
+					<th class="header">咨询时间</th>
+					<th class="header">回复人员</th>
+					<th class="header">回复时间</th>
+					<th class="header">操作</th>
+				</tr>
+			</thead>
+
+			<tbody>
+                {set:$queryObj=Api::run('getSellerListByRefer');$resultData=$queryObj->find()}
+                {foreach:items=$resultData}
+				<tr>
+					<td><input name="id[]" type="checkbox" value="{$item['id']}" /></td>
+					<td><a href="{url:/site/products/id/$item['goods_id']}" target="_blank" title="{$item['name']}">{$item['name']}</a></td>
+					<td>{if:isset($item['username'])}{$item['username']}{else:}非会员{/if}</td>
+					<td>{$item['time']}</td>
+					<td>{if:$item['admin_name']}{$item['admin_name']}{elseif:$item['seller_name']}{$item['seller_name']}{/if}</td>
+					<td>{$item['reply_time']}</td>
+					<td>
+						<a href="{url:/seller/refer_edit/id/$item[id]}"><img src="{skin:images/main/icn_audio.png}" title="回复咨询" /></a>
+						<a href="javascript:delModel({link:'{url:/seller/refer_del/id/$item[id]}'})"><img src="{skin:images/main/icn_del.png}" title="删除" /></a>
+					</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</form>
+	{$queryObj->getPageBar()}
+</article>

@@ -1,0 +1,25 @@
+
+.tags_box {
+	min-height: 600px;background: $cff;
+	padding: 20px;width: 1160px;margin: 0 auto 15px;font-size: 14px;
+	a {
+		display: inline-block;line-height: 2.4;padding: 0 10px;background: $pink;color: $cff;
+		border-radius: 5px;margin: 5px;
+		@include dz();
+		&:nth-child(10n){background: $pink;}
+		&:nth-child(10n+1){background: $blue;}
+		&:nth-child(10n+2){background: $green;}
+		&:nth-child(10n+3){background: $red;}
+		&:nth-child(10n+4){background: $orange;}
+		&:nth-child(10n+5){background: $cyan;}
+		&:nth-child(10n+6){background: $gold;}
+		&:nth-child(10n+6){background: lighten($blue,10%);}
+		&:nth-child(10n+7){background: lighten($green,10%);}
+		&:nth-child(10n+8){background: lighten($red,10%);}
+		&:nth-child(10n+9){background: lighten($orange,10%);}
+		&:hover {
+			@include fd(1.2);text-decoration: none;
+			box-shadow:0 0 1px rgba($c00,.1) inset, 0 0 0 100px rgba($cff,.2) inset,0 0 100px 50px rgba($cff,.4);
+		}
+	}
+}

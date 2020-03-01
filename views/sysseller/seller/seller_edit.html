@@ -1,0 +1,130 @@
+{js:artTemplate}
+{js:areaSelect}
+<article class="module width_full">
+	<header>
+		<h3>编辑商户</h3>
+	</header>
+
+	<form action="{url:/seller/seller_add}" method="post" name="sellerForm" enctype='multipart/form-data'>
+		<div class="module_content">
+			<fieldset>
+				<label>登陆用户名：</label>
+				<input name="seller_name" type="text" value="" pattern="required" alt="用户名不能为空" disabled="disabled" />
+				<label class="tip">* 用户名称（必填）</label>
+			</fieldset>
+
+			<fieldset>
+				<label>密码：</label>
+				<input name="password" type="password" bind='repassword' empty />
+				<label class="tip">* 登录密码</label>
+			</fieldset>
+
+			<fieldset>
+				<label>确认密码：</label>
+				<input name="repassword" type="password" bind='password' empty  />
+				<label class="tip">* 重复确认密码</label>
+			</fieldset>
+
+			<fieldset>
+				<label>商户LOGO图：</label>
+				<div class="box">
+					<input name="logo" type="file" />
+				</div>
+				<div class="box">
+					{if:isset($this->sellerRow['logo']) && $this->sellerRow['logo']}
+					<img src="{url:$this->sellerRow['logo']}" style='width:220px;border:1px solid #ccc' />
+					{/if}
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>商户真实全称：</label>
+				<input name="true_name" type="text" value="" pattern="required" disabled="disabled" />
+			</fieldset>
+
+			<fieldset>
+				<label>商户资质材料：</label>
+				<div class="box">
+					{if:isset($this->sellerRow['paper_img']) && $this->sellerRow['paper_img']}
+					<p><a target="_blank" href="{url:$this->sellerRow['paper_img']}"><img src='{url:$this->sellerRow['paper_img']}' style='width:320px;border:1px solid #ccc' /></a></p>
+					{else:}
+					暂无商户资质材料
+					{/if}
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>保证金数额：</label>
+				<input type="text" name="cash" pattern="float" empty disabled="disabled" />
+				<label class="tip">人民币（元）</label>
+			</fieldset>
+
+			<fieldset>
+				<label>收款账号：</label>
+				<textarea class="normal" name="account" empty></textarea>
+				<label class="tip">标明开户行，卡号，账户名称等</label>
+			</fieldset>
+
+			<fieldset>
+				<label>固定电话：</label>
+				<input type="text" name="phone" pattern="phone" />
+			</fieldset>
+
+			<fieldset>
+				<label>手机号码：</label>
+				<input type="text" name="mobile" pattern="mobi" />
+			</fieldset>
+
+			<fieldset>
+				<label>邮箱：</label>
+				<input type="text" name="email" pattern="email" empty />
+			</fieldset>
+
+			<fieldset>
+				<label>地区：</label>
+				<div class="box">
+					<select name="province" child="city,area" class="auto"></select>
+					<select name="city" child="area" class="auto"></select>
+					<select name="area" class="auto"></select>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>详细地址：</label>
+				<input name="address" type="text" empty value="" />
+			</fieldset>
+
+			<fieldset>
+				<label>QQ号码：</label>
+				<input name="server_num" type="text" empty value="" />
+			</fieldset>
+
+			<fieldset>
+				<label>发票税率(百分制)：</label>
+				<input name="tax" class="small" type="text" empty value="" pattern="float" />%
+				<label class="tip">当买家需要发票的时候就要增加<商品金额>*<税率>的费用</label>
+			</fieldset>
+
+			<fieldset>
+				<label>企业官网：</label>
+				<input name="home_url" type="text" pattern="url" empty value="" alt="请填写完整的URL地址，比如：http://www.aircheng.com" />
+				<label class="tip">官网的URL网址，如：http://www.aircheng.com</label>
+			</fieldset>
+		</div>
+
+		<footer>
+			<div class="submit_link">
+				<input type="submit" class="alt_btn" value="确 定" />
+				<input type="reset" value="重 置" />
+			</div>
+		</footer>
+	</form>
+</article>
+
+<script language="javascript">
+var formObj = new Form('sellerForm');
+formObj.init({echo:JSON::encode($this->sellerRow)});
+
+var areaInstance = new areaSelect('province');
+areaInstance.init({echo:JSON::encode($this->sellerRow)});
+</script>

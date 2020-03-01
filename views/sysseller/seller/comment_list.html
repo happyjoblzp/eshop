@@ -1,0 +1,103 @@
+{js:my97date}
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">商品评价列表</h3>
+
+		<ul class="tabs">
+			<li><input type="button" class="alt_btn" onclick="filterResult();" value="检索" /></li>
+		</ul>
+	</header>
+
+	<table class="tablesorter" cellspacing="0">
+		<colgroup>
+			<col width="140px" />
+			<col />
+			<col width="160px" />
+			<col width="140px" />
+			<col width="85px" />
+		</colgroup>
+
+		<thead>
+			<tr>
+				<th>评价人</th>
+				<th>评价商品</th>
+				<th>评价时间</th>
+				<th>状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+
+		<tbody>
+            {foreach:items=$this->query->find()}
+			<tr>
+				<td>{$item['username']}</td>
+				<td><a href="{url:/site/products/id/$item['goods_id']}" target="_blank">{$item['goods_name']}</a></td>
+				<td>{$item['time']}</td>
+				<td>{if:$item['recomment_time']>0}已回复{else:}未回复{/if}</td>
+				<td><a href="{url:/seller/comment_edit/cid/$item[id]}"><img src="{skin:images/main/icn_settings.png}" alt="查看" /></a></td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+    {$this->query->getPageBar()}
+</article>
+
+<script type="text/html" id="filterTemplate">
+<form action="{url:/}" method="get" name="filterForm">
+	<input type='hidden' name='controller' value='seller' />
+	<input type='hidden' name='action' value='comment_list' />
+	<div class="module_content">
+		<fieldset>
+			<select name="search[like]" class="auto">
+				<option value="u.username">评价人</option>
+				<option value="goods.name">评价商品</option>
+				<option value="c.order_no">订单号</option>
+			</select>
+			<input name="search[likeValue]" value="" type="text" style="width:50%" />
+		</fieldset>
+		<fieldset>
+			<label>开始时间：</label>
+			<input type="text" name="search[time>=]" onfocus="WdatePicker()" />
+		</fieldset>
+		<fieldset>
+			<label>截止时间：</label>
+			<input type="text" name="search[time<=]" onfocus="WdatePicker()" />
+		</fieldset>
+		<fieldset>
+			<label>回复状态：</label>
+			<select name="search[c.recomment_time]">
+				<option value="">不限</option>
+				<option value="=0">未回复</option>
+				<option value=">0">已回复</option>
+			</select>
+		</fieldset>
+    </div>
+</form>
+</script>
+
+<script type="text/javascript">
+//检索商品
+function filterResult()
+{
+	var filterTemplate = template.render('filterTemplate');
+	art.dialog(
+	{
+		"init":function()
+		{
+			var filterPost = {echo:JSON::encode(IReq::get('search'))};
+			var formObj = new Form('filterForm');
+			for(var index in filterPost)
+			{
+				formObj.setValue("search["+index+"]",filterPost[index]);
+			}
+		},
+		"title":"检索条件",
+		"content":filterTemplate,
+		"okVal":"立即检索",
+		"ok":function(iframeWin, topWin)
+		{
+			iframeWin.document.forms[0].submit();
+		}
+	});
+}
+</script>

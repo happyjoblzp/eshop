@@ -1,0 +1,55 @@
+<article class="module width_full">
+	<header>
+		<h3>快递公司编辑</h3>
+	</header>
+
+	<form action="{url:/seller/expresswaybill_update}" method="post">
+		<input name="id" value="" type="hidden" />
+
+		<div class="module_content">
+			<fieldset>
+				<label>物流公司名称：</label>
+				{$this->expressRow['freight_name']}
+			</fieldset>
+
+			{if:$this->expressRow['config']}
+			{set:$configParam = JSON::decode($this->expressRow['config'])}
+			{foreach:items = $configParam}
+			<fieldset>
+				<label>{$key}：</label>
+				<input class="form-control" name="{$key}" type="text" value="{$item}" pattern="required" />
+			</fieldset>
+			{/foreach}
+			{/if}
+
+			<fieldset>
+				<label>打印接口说明：</label>
+				{$this->expressRow['description']}
+			</fieldset>
+
+			<fieldset>
+				<label>开启：</label>
+				<div class="box">
+                    <label><input type="radio" name="is_open" value="1" checked="checked">开启</label>
+                    <label><input type="radio" name="is_open" value="0">关闭</label>
+                    <label class="tip">只有开启后，在快递单打印的时候才能选择此物流公司</label>
+            	</div>
+			</fieldset>
+		</div>
+
+		<footer>
+			<div class="submit_link">
+				<input type="submit" class="alt_btn" value="保 存" />
+				<input type="reset" value="重 置" />
+			</div>
+		</footer>
+	</form>
+</article>
+
+<script language="javascript">
+//DOM加载完毕
+$(function(){
+	var formInstance = new Form();
+	formInstance.init({echo:JSON::encode($this->expressRow)});
+});
+</script>

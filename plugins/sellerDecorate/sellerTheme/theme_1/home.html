@@ -1,0 +1,107 @@
+<!--引入头部-->
+{set:include($this->sellerDecorate->viewFile('header'))}
+
+<!-- 幻灯片 -->
+<div class="home-slider">
+    {foreach:items=Api::run('getBannerList',$seller_id)}
+ 	<div><div class="slider-item white-bg" style="background-image:url('{url:/pic/thumb/img/$item['img']}')"></div></div>
+    {/foreach}
+</div>
+
+<!-- 广告图片 -->
+<section class="product-category section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="title text-center">
+					<h2>精品推荐</h2>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="category-box">
+				    {echo:Ad::show("首页中部左侧上(theme_1)",0,$seller_id)}
+				</div>
+
+				<div class="category-box">
+				    {echo:Ad::show("首页中部左侧下(theme_1)",0,$seller_id)}
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="category-box category-box-2">
+				    {echo:Ad::show("首页中部右侧(theme_1)",0,$seller_id)}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- 商品列表 -->
+<section class="products section bg-gray">
+	<div class="container">
+
+	    <!--推荐商品-->
+		<div class="row">
+			<div class="title text-center">
+				<h2>推荐商品</h2>
+			</div>
+		</div>
+		<div class="row">
+		    {foreach:items=Api::run('getGoodsListBySellerid',['seller_id' => $seller_id],6)}
+			<div class="col-md-4">
+			    <a href="{url:/site/products/id/$item['id']}">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" src="{url:/pic/thumb/img/$item['img']/w/450/h/550}" alt="product-img" />
+					</div>
+					<div class="product-content">
+						<h4>{$item['name']}</h4>
+						<p class="price">￥{$item['sell_price']}</p>
+					</div>
+				</div>
+			    </a>
+			</div>
+			{/foreach}
+		</div>
+
+        <!--店内分类循环-->
+        {foreach:items=Api::run('getSellerCategoryListTop',['seller_id' => $seller_id]) item=$catRow}
+		<div class="row">
+			<div class="title text-center">
+				<h2><a href="{url:/site/sellerCate/id/$catRow['id']}">{$catRow['name']}</a></h2>
+                <ol class="breadcrumb">
+                    {foreach:items=Api::run('getSellerCategoryByParentid',['parent_id' => $catRow['id']]) item=$second}
+                    <li><a href="{url:/site/sellerCate/id/$second['id']}">{$second['name']}</a></li>
+                    {/foreach}
+				</ol>
+			</div>
+		</div>
+		<div class="row">
+		    {foreach:items=Api::run('getSellerCategoryExtendList',['categroy_id' => $catRow['id']],12)}
+			<div class="col-md-4">
+			    <a href="{url:/site/products/id/$item['id']}">
+				<div class="product-item">
+					<div class="product-thumb">
+						<img class="img-responsive" src="{url:/pic/thumb/img/$item['img']/w/450/h/550}" alt="product-img" />
+					</div>
+					<div class="product-content">
+						<h4>{$item['name']}</h4>
+						<p class="price">￥{$item['sell_price']}</p>
+					</div>
+				</div>
+				</a>
+			</div>
+			{/foreach}
+		</div>
+		{/foreach}
+	</div>
+</section>
+
+<script src="{echo:__WEBPATH__}/plugins/slick-carousel/slick/slick.min.js"></script>
+<script>
+//幻灯片开启
+$(document).ready(function(){
+    $('.home-slider').slick();
+});
+</script>

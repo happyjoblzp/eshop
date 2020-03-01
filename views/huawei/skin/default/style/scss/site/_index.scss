@@ -1,0 +1,367 @@
+// 首页楼层的标题样式-公用
+.home_layer_title {
+	padding: 30px 0 15px 0; line-height: 1; @extend .cf;
+	h3 {float: left; color: #3a3a3a; font-size: 22px; font-weight: 400; display: inline-block;}
+}
+// 首页公用阴影
+.home_pul_box_shadow {
+	@include dz(); position: relative; top: 0; z-index: 1;
+	&:hover {
+		top: -2px; box-shadow: 0 3px 12px rgba(#000, .3);
+	}
+}
+
+
+// banner:除了调整宽高一般不动
+.home_fouse {
+	height: 450px; position: relative;width:1300px;margin:0 auto;
+	img {display:block;width: 100%;height: 450px;}
+	strong {display: none;}
+	.FocusPic {
+		li {
+			height: 450px;background-size: cover;
+			background-position: center;
+		}
+		a {
+			display: block;width: 100%;height: 450px;
+		}
+	}
+	.FocusNum {
+		width: 100%;height: 25px;position: absolute;bottom: 0;left: 0;text-align: center;
+		li {
+			display: inline-block;margin: 0 10px 0 0;width: 5px;height: 5px;background: rgba($c00,.3);text-align: left;
+			text-indent: -9999px;border-radius: 50%;border: 3px solid rgba($cff,.3);cursor: pointer;
+			&.on {
+				background: $cff;border: 3px solid rgba($c00,.3);
+			}
+		}
+	}
+	.FocusLeft,.FocusRight {
+		position: absolute;width: 41px;height: 100%;top: 0;
+		background-image: url("../image/icon_slides.png");
+		background-repeat: no-repeat;
+		@include dz();cursor: pointer;
+	}
+	.FocusLeft {
+		left: 0;
+		background-position: -41px center;
+		&:hover {background-position: 0 center;}
+	}
+	.FocusRight {
+		right: 0;
+		background-position: -82px center;
+		&:hover {background-position: right center;}
+	}
+}
+// banner:除了调整宽高一般不动
+
+// 商城公告和新闻动态
+.home_feature {
+	@extend .web; background: #FFF; text-align: center; border: 1px solid $cea;
+	border-top: 0 none; height: 100px; box-sizing: border-box;
+	.feature_content {
+		width: 298px; height: 100px; float: left; position: relative;
+		h4 {
+			height: 22px; line-height: 22px; text-align: left; padding: 0 10px;
+			margin-top: 10px;
+			a { color: $cca151d; font-size: 16px;}
+			img {
+				width: 22px; height: 22px; float: right; margin-right: 15px;
+			}
+		}
+		.feature_title {
+			padding: 0 10px; height: 66px; box-sizing: border-box; overflow: hidden;
+			a {
+				display: block; font-size: 13px; font-weight: 600;
+				@include oneline(22px); text-align: left;
+				&:hover { color: $cca151d; }
+			}
+		}
+	}
+	.feature_list {
+		width: 600px; height: 100px; float: left; border-right: 1px solid $cea; border-left: 1px solid $cea;
+		li {
+			@extend .cf; float: left;
+			i {
+				width: 40px; height: 40px; margin: 30px; font-size: 35px;
+			}
+		}
+	}
+}
+
+// 广告位
+.home_focus_show {
+	@extend .web; margin-top: 15px;
+	.show_list {
+		width: 291px; height: 160px; float: left; margin-right: 12px; background: $cf0;
+		&:nth-child(4) {margin-right: 0;}
+	}
+	.banner_wrapper {
+		width: 100%; height: 120px; background: $cf0; margin: 10px 0;
+	}
+}
+// 广告位
+
+// 热卖商品
+.hotsale {
+	@extend .web;
+	// & > h3 {
+	//   color: #3a3a3a; font-size: 22px;  padding: 30px 0 15px 0; line-height: 1; font-weight: 400;
+	// }
+	.container {
+		width: 100%; height: 590px;
+		.hot_banner {
+			width: 232px; height: 100%; float: left; background: $cf0;
+		}
+		.index_card_container {
+			width: 968px; float: left; @extend .cf;
+			a {
+				background: #FFF; float: left; margin-bottom: 10px; margin-left: 10px;
+				width: 232px; height: 290px;
+				// @include dz(); position: relative; top: 0; z-index: 1;
+				// &:hover {
+				//   top: -2px; box-shadow: 0 3px 12px rgba(#000, .3);
+				// }
+				img {
+					margin: 34px auto 0; width: 134px; height: 134px; display: block;
+				}
+				.pro_title {
+					font-size: 14px; font-weight: 400; color: #3a3a3a; @include oneline(24px);
+					padding-top: 14px; margin: 16px 20px 2px; text-align: center;
+				}
+				del {
+					font-size: 12px; font-weight: 400; color: $ca4; text-decoration: line-through;
+					overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 24px;
+					display: block; text-align: center;
+				}
+				.pro_price {
+					font-size: 14px; font-weight: 400; color: #cc0e11; text-align: center;
+					overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 24px;
+					&:hover { color: #cc0e11; }
+				}
+			}
+		}
+	}
+}
+// 热卖商品
+
+// 公共样式
+.home_activity {
+	@extend .web; @extend .cf; position: relative;
+	header {
+		.more {
+				float: right; padding: 0 14px; font-size: 18px; color: #666; text-align: center;
+			}
+	}
+	.act_content {
+		@extend .web; overflow: hidden; height: 290px;
+	}
+	ul {
+		@extend .cf;
+		li {
+			display: block; float: left; position: relative;
+			a {
+				display: block; text-align: center; text-decoration: none; width: 100%; height: 100%;
+				position: relative; color: #333;
+				img { margin: 0 auto; display: block; }
+				.pro_title {
+					font-size: 14px; font-weight: 400; color: #3a3a3a; text-align: center;
+				}
+				// 虚拟的价格-公共固定
+				del {
+					font-size: 12px; font-weight: 400; color: $ca4; text-decoration: line-through;
+					overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 24px;
+					display: block; text-align: center;
+				}
+				.pro_price {
+					text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+				}
+			}
+		}
+	}
+}
+// 公共样式
+
+// 推荐商品
+.recommend {
+	.control {
+		@extend .web; overflow: hidden; height: 290px; position: absolute; bottom: 0; left: 0;
+		i {
+			background: rgba(204,204,204,0.9); cursor: pointer; height: 75px; width: 22px;
+			position: absolute; margin-top: -37.5px; top: 50%; z-index: 3;
+			line-height: 75px; text-align: center; font-size: 24px; color: #fff;
+			&:hover { background: rgba(153,153,153,0.9); }
+		}
+		#home_rec_left { left: 0; }
+		#home_rec_right { right: 0; }
+	}
+	.act_content {
+		padding: 12px 0;
+		ul {
+			li {
+				width: 217px; height: 290px; background: #FFF; border-left: 1px solid #f5f5f5;
+				&:nth-child(1) {border: 0;} margin-top: 6px;
+				a {
+					img { width: 134px; height: 134px; padding-top: 34px; }
+					.pro_title {
+						@include oneline(24px); // 各自数值不同
+						padding-top: 14px; margin: 16px 20px 2px;
+					}
+					.pro_price {
+						font-size: 14px; font-weight: 400; color: #cc0e11; line-height: 24px;
+						&:hover { color: #cc0e11; }
+					}
+				}
+			}
+		}
+	}
+}
+// 推荐商品
+
+// 团购商品
+.group_buy {
+	.act_content {
+		ul {
+			li {
+				width: 239px; height: 298px; background: #FFF; border-left: 1px solid #f5f5f5;
+				&:nth-child(1) {border: 0;}
+				a {
+					&::before {
+						content: "团购"; display: block; background: #f36f72; color: #fff;
+						width: 40px; height: 40px; line-height: 40px; text-align: center;
+						border-radius: 50%; position: absolute; z-index: 1; right: 10px; top: 10px;
+					}
+					&:hover {
+						img {@include fd(1.1);}
+					}
+					img { width: 170px; height: 170px; padding-top: 29px; @include dz(); }
+					.pro_title {
+						@include oneline(30px); // 各自数值不同
+						margin: 10px auto 0px; width: 170px;
+					}
+					.pro_price {
+						margin: 10px auto 0px; width: 170px;
+						color: #FF8225; font-size: 18px; display: block; margin-top: 10px; line-height: 18px;
+					}
+				}
+			}
+		}
+	}
+}
+// 团购商品
+
+// 限时抢购
+.panic_buy {
+	.control {
+			@extend .web; overflow: hidden; height: 290px; position: absolute; bottom: 0; left: 0;
+			i {
+				background: rgba(204,204,204,0.9); cursor: pointer; height: 75px; width: 22px;
+				position: absolute; margin-top: -37.5px; top: 50%; z-index: 3;
+				line-height: 75px; text-align: center; font-size: 24px; color: #fff;
+				&:hover { background: rgba(153,153,153,0.9); }
+			}
+			#home_panic_left { left: 0; }
+			#home_panic_right { right: 0; }
+		}
+	.act_content {
+		ul {
+			li {
+				width: 240px; height: 298px; background: #FFF; outline: 1px solid #f5f5f5;
+				.times {
+					position: absolute; color: $cff; text-align: center; line-height: 20px; font-size: 12px;
+					left: 0; top: 0; background: #F85D92; width: 100%; height: 20px;
+				}
+				a {
+					&:hover {
+						img {@include fd(1.1);}
+					}
+					img { width: 170px; height: 170px; padding-top: 29px; @include dz(); }
+					.pro_title {
+						@include oneline(30px); // 各自数值不同
+						margin: 10px auto 0px; width: 170px;
+					}
+					.pro_price {
+						margin: 10px auto 0px; width: 170px;
+						color: #FF8225; font-size: 18px; display: block; margin-top: 10px; line-height: 18px;
+					}
+				}
+			}
+		}
+	}
+}
+// 限时抢购
+
+// 主页活动section：recommend-推荐商品、group_buy-团购商品、panic_buy限时抢购
+
+// 开始首页分类
+.home_floor {
+	@extend .web; background: $cfa;
+	header {
+		position: relative;
+		.floor_nav {
+			line-height: 22px; margin-left: 28px; float: left; max-width: 925px;
+		li {
+			float: left;
+			a,i { @include dz(); }
+					a {
+						display: inline-block; font-size: 16px; margin: 0 10px;
+						color: $ca4; position: relative; line-height: 22px;
+						&::after {
+							content: ''; background: $cca151d; display: block;
+							width: 0; position: absolute; bottom: -4px; left: 0; height: 2px;
+						}
+						&:hover { color: $cca151d; }
+						&:hover::after { width: 100%;}
+					}
+		}
+	}
+		.more {
+			float: right; padding: 0 14px; font-size: 18px; color: #666; text-align: center;
+		}
+	}
+	.floor_body {
+		@extend .cf;
+		.floor_goods {
+			@extend .cf; @extend .web;
+			ul {
+				width: 1212px; margin-left: -12px; height: 704px; position: relative;
+				&.costpoint {
+					height: 352px;
+				}
+				li.floor_show {
+					background: $cf0;
+				}
+				li {
+					height: 346px; width: 291px; margin-left: 12px; margin-bottom: 12px;
+					background: #FFF; float: left; position: relative;
+					a {
+						display: inline-block; width: 100%; height: 100%; text-align: center;
+						div.admanage {
+							img {width: 100%; height: 100%; padding-top: 0;}
+						}
+						.floor_goods_img {
+							margin: 0 auto; display: block; width: 170px; height: 170px; padding-top: 29px;
+							@include dz();
+						}
+						.pro_title {
+							@include oneline(30px); // 各自数值不同
+							margin: 10px auto 0px; width: 170px;
+							font-size: 14px; font-weight: 400; color: #3a3a3a; text-align: center;
+						}
+						// 虚拟的价格-公共固定
+						del {
+							font-size: 12px; font-weight: 400; color: $ca4; text-decoration: line-through;
+							overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 24px;
+							display: block; text-align: center;
+						}
+						.pro_price {
+							text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+							margin: 10px auto 0px; width: 170px;
+							font-size: 14px; font-weight: 400; color: #cc0e11; line-height: 24px;
+						}
+					}
+				}
+			}
+		}
+	}
+}

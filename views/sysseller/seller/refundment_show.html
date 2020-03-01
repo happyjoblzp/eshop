@@ -1,0 +1,209 @@
+{set:$orderRow = Api::run('getOrderRowById',array('order_id'=>$order_id))}
+{set:$refundRowCount = CountSum::countSellerOrderFee(array($orderRow))}
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">申请详情</h3>
+	</header>
+
+	<form action="{url:/seller/refundment_update}" name="refundForm" method="post">
+	    <input type="hidden" name="id" value="{$id}" />
+	    <input type="hidden" name="order_id" value="{$order_id}" />
+		<div class="module_content">
+			<fieldset>
+				<label>订单号</label>
+				<div class="box">{$order_no}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>订单时间</label>
+				<div class="box">{$create_time}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>订单商品应付金额</label>
+				<div class="box">￥{$payable_amount}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>订单商品实付金额</label>
+				<div class="box">￥{$real_amount}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>订单运费应付金额</label>
+				<div class="box">￥{$payable_freight}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>订单运费实付金额</label>
+				<div class="box">￥{$real_freight}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>订单保价金额</label>
+				<div class="box">￥{$insured}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>订单税金金额</label>
+				<div class="box">￥{$taxes}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>订单促销活动优惠金额</label>
+				<div class="box">￥{$promotions}</div>
+			</fieldset>
+
+			{if:$discount}
+			<fieldset>
+				<label>订单金额增减</label>
+				<div class="box">￥{$discount}</div>
+			</fieldset>
+			{/if}
+
+			<fieldset>
+				<label>订单总额</label>
+				<div class="box">￥{$order_amount}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>订单此前已退金额</label>
+				<div class="box">￥{$refundRowCount['refundFee']}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>商品信息</label>
+				<div class="box">
+				    {set:$is_send = false}
+                    {foreach:items=Api::run('getOrderGoodsRowById',array('id'=>$order_goods_id))}
+                    {if:$item['is_send']==1}{set:$is_send = true}{/if}
+					{set:$goods = JSON::decode($item['goods_array'])}
+					<p>
+					{$goods['name']} X {$item['goods_nums']}
+					<span class="green">【{echo:Order_Class::goodsSendStatus($item)}】</span>
+					<span class="red">【商品金额：￥{echo:$item['goods_nums'] * $item['real_price']}】</span>
+					</p>
+					{/foreach}
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>用户名</label>
+				<div class="box">
+					{set:$user = Api::run('getMemberInfo',$user_id)}
+					{$user['username']}
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>申请时间</label>
+				<div class="box">{$time}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>申请原因</label>
+				<div class="box">{$content}</div>
+			</fieldset>
+
+			{if:$img_list}
+            <fieldset>
+                <label>图片信息</label>
+                <div class="box">
+                {foreach:items=JSON::decode($img_list) item=$itemImg}
+                    <a href="{url:$itemImg}" target="_blank"><img class="img-thumbnail" style="width:100px;height:100px;border:1px solid #ccc;" src="{url:$itemImg}" /></a>
+                 {/foreach}
+                 </div>
+            </fieldset>
+            {/if}
+
+			<fieldset>
+				<label>处理操作</label>
+				<div class="box">
+					<label><input type='radio' name='pay_status' value='2' checked="checked" />同意退款</label>
+					<label><input type='radio' name='pay_status' value='1' />拒绝退款</label>
+
+					{if:$is_send == true && !$user_send_time}
+					<label><input type='radio' name='pay_status' value='3' checked="checked" />买家填写返还物流信息</label>
+					{/if}
+				</div>
+
+				<div class="box" id="sellerSendBox">
+					<label><input type="radio" name="isAuto" onclick="closeCustom();" checked="checked" />退款商品支付金额</label>
+					<label>
+						<input type="radio" name="isAuto" onclick="openCustom();" />手动填写退款金额
+						<input type="text" class="small" name="amount" pattern="float" empty disabled="disabled" placeholder="手动退款金额" />
+					</label>
+					<label class="tip">与买家协商好后进行退款操作，退款金额会自动转到买家用户余额里面</label>
+				</div>
+			</fieldset>
+
+			{if:$user_send_time}
+			<fieldset>
+			    <label>买家返还物流</label>
+			    <div class="box">
+			        {$user_send_time}
+                    <p>
+				    {foreach:items=Api::run('getFreightCompanyById',array('freight_id'=>$user_freight_id)) item=$tempFreight}
+                    {$tempFreight['freight_name']}
+                    {/foreach}
+
+                    【快递单号：{$user_delivery_code}】
+                    <button class="btn btn-default" type="button" onclick="freightLine({$user_freight_id},'{$user_delivery_code}')">物流跟踪</button>
+			        </p>
+			    </div>
+			</fieldset>
+			{/if}
+
+			<fieldset>
+				<label>处理意见</label>
+				<div class="box"><textarea class="textarea" name="dispose_idea" style="height:80px">{$dispose_idea}</textarea></div>
+			</fieldset>
+		</div>
+
+		<footer>
+			<div class="submit_link">
+				<input type="submit" class="alt_btn" value="确 定" />
+				<input type="reset" value="重 置" />
+			</div>
+		</footer>
+	</form>
+</article>
+
+<script type="text/javascript">
+function openCustom()
+{
+	$('[name="amount"]').prop('disabled',false);
+}
+
+function closeCustom()
+{
+	$('[name="amount"]').prop('disabled',true);
+	$('[name="amount"]').val('');
+}
+
+//快递跟踪
+function freightLine(doc_id,code)
+{
+	var urlVal = "{url:/block/freight/id/@id@/code/@code@}";
+	urlVal = urlVal.replace("@id@",doc_id).replace("@code@",code);
+	art.dialog.open(urlVal,{title:'轨迹查询',width:'600px',height:'500px'});
+}
+
+//根据操作选项预显示内容
+function changeShow()
+{
+    var statusVal = $('[name="pay_status"]:checked').val();
+    if(statusVal == 2)
+    {
+        $('#sellerSendBox').show();
+    }
+    else
+    {
+        $('#sellerSendBox').hide();
+    }
+}
+
+//加载完毕运行
+changeShow();
+$('[name="pay_status"]').on("click",changeShow);
+</script>

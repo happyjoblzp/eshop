@@ -1,0 +1,49 @@
+{set:$id = IFilter::act(IReq::get('id'),'int')}
+{set:$item = Api::run('getReferRowById',array('id'=>$id))}
+
+<article class="module width_full">
+	<header>
+		<h3>咨询回复</h3>
+	</header>
+
+	<form action="{url:/seller/refer_reply}" method="post" name="refer_edit">
+		<input type="hidden" value="{$item['id']}" name="refer_id" />
+
+		<div class="module_content">
+			<fieldset>
+				<label>咨询人</label>
+				<div class="box">
+					{if:isset($item['username'])}<a href="{url:/member/member_edit/uid/$item[user_id]}">{$item['username']}</a>{else:}非会员顾客{/if}
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>咨询时间</label>
+				<div class="box">
+					{$item['time']}
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>咨询内容</label>
+				<div class="box">
+					{$item['question']}
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>回复</label>
+				<div class="box">
+					<textarea name="content" rows="" cols="">{$item['answer']}</textarea>
+				</div>
+			</fieldset>
+		</div>
+
+		<footer>
+			<div class="submit_link">
+				<input type="submit" class="alt_btn" value="回 复" />
+				<input type="reset" value="重 置" />
+			</div>
+		</footer>
+	</form>
+</article>

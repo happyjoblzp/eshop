@@ -1,0 +1,19 @@
+
+.prompt_page {
+	width: 600px;margin: 50px auto;padding: 50px;background: $cff;
+	@extend .cf;
+	.ico {width: 140px;height: 140px;display: block;float: left;margin-right: 50px;}
+	&.error {
+		box-shadow: 0 0 5px $red;
+		.ico {background:url("../image/cry.gif") center no-repeat;}
+		strong {color: $red;font-size: 16px;}
+	}
+	&.success {
+		box-shadow: 0 0 5px $green;
+		.ico {background:url("../image/right.gif") center no-repeat;}
+		strong {color: $green;font-size: 16px;}
+	}
+	article {
+		line-height: 2;display: table-cell;vertical-align: middle;height: 140px;
+	}
+}

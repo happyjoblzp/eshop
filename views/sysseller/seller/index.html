@@ -1,0 +1,69 @@
+{set:$countData = statistics::sellerAmount($this->seller['seller_id']);}
+{js:chart}
+
+<article class="module width_full">
+	<header><h3>概要信息</h3></header>
+	<div class="module_content">
+		<table class="tablesorter" cellspacing="0">
+			<thead></thead>
+			<tbody>
+				<tr>
+					<td>商品总数量：<a href="{url:/seller/goods_list}">{echo:Api::run('goodsCount')} 件</a></td>
+					<td>待回复咨询：<a href="{url:/seller/refer_list}">{echo:Api::run('referWaitCount')} 条</a></td>
+					<td>商品评论数：<a href="{url:/seller/comment_list}">{echo:Api::run('commentCount')} 条</a></td>
+					<td>总销售量：{echo:statistics::sellCountSeller($this->seller['seller_id'])} 件</td>
+
+				</tr>
+				<tr>
+					<td>信用评分：{echo:statistics::gradeSeller($this->seller['seller_id'])} 分</td>
+					<td>退款申请：<a href="{url:/seller/refundment_list}">{echo:Api::run('refundsCount')} 条</a></td>
+					<td>维修申请：<a href="{url:/seller/fix_list}">{echo:Api::run('fixWaitCount')} 条</a></td>
+					<td>换货申请：<a href="{url:/seller/exchange_list}">{echo:Api::run('exchangeWaitCount')} 条</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</article>
+
+<article class="module width_full">
+	<header><h3>销售统计</h3></header>
+	<div class="module_content">
+		<div id="myChart" style="width:100%;min-height:320px;"></div>
+	</div>
+</article>
+
+<script type='text/javascript'>
+//图表生成
+$(function()
+{
+	//图标模板
+	var option = {
+		title:
+		{
+			text:'销售统计'
+		},
+		xAxis:
+		{
+			name:'时间',
+			data:{echo:JSON::encode(array_keys($countData))},
+		},
+		yAxis:
+		{
+			name:'销售额(元)'
+		},
+		series:
+		[
+			{
+				name:'销售额',
+				type: 'line',
+				data:{echo:JSON::encode(array_values($countData))}
+			}
+		],
+		tooltip:
+		{
+			show:true
+		}
+	};
+	echarts.init(document.getElementById('myChart')).setOption(option);
+})
+</script>

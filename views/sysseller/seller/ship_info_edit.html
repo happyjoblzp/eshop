@@ -1,0 +1,88 @@
+{js:artTemplate}
+{js:areaSelect}
+{set:$ship=$this->data}
+
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">商家发货信息</h3>
+	</header>
+
+	<form name="ModelForm" action="{url:/seller/ship_info_update}" method="post">
+		<input type="hidden" name="id" value=""/>
+		<div class="module_content">
+			<fieldset>
+				<label>发货点名称</label>
+				<input name="ship_name" type="text" pattern="required" value="" alt="发货点名称"//>
+			</fieldset>
+
+			<fieldset>
+				<label>发货人姓名</label>
+				<input name="ship_user_name"  type="text" pattern="required" value=""  alt="发货人姓名"/>
+			</fieldset>
+
+			<fieldset>
+				<label>性别</label>
+				<div class="box">
+					<label><input type="radio" name="sex" value="1" checked="checked" />先生</label>
+					<label><input type="radio" name="sex" value="0" />女士</label>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>地区</label>
+				<div class="box">
+					<select name="province" child="city,area" class="auto"></select>
+					<select name="city" child="area" class="auto"></select>
+					<select name="area" parent="city" class="auto"></select>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>地址</label>
+				<input name="address" type="text" pattern="required" value=""  alt="具体地址错误"/>
+			</fieldset>
+
+			<fieldset>
+				<label>邮编</label>
+				<input name="postcode" type="text" pattern="zip" value="" empty alt="邮编错误"/>
+			</fieldset>
+
+			<fieldset>
+				<label>手机</label>
+				<input name="mobile" type="text" pattern='mobi' value="" />
+			</fieldset>
+
+			<fieldset>
+				<label>固定电话</label>
+				<input name="telphone" type="text" pattern="phone" empty alt="电话号码错误" value="" />
+			</fieldset>
+
+			<fieldset>
+				<label>默认地址</label>
+				<div class="box">
+				    <label><input type="checkbox" name="is_default" value="1" />设置为默认地址</label>
+				</div>
+			</fieldset>
+		</div>
+
+		<footer>
+			<div class="submit_link">
+				<input type="submit" class="alt_btn" value="确 定" />
+				<input type="reset" value="重 置" />
+			</div>
+		</footer>
+	</form>
+</article>
+
+<script type='text/javascript'>
+//DOM加载完毕
+var formObj = new Form();
+formObj.init({echo:JSON::encode($ship)});
+
+var selectInstance = new areaSelect('province');
+{if:isset($ship) && $ship}
+	selectInstance.init({echo:JSON::encode($ship)});
+{else:}
+	selectInstance.init();
+{/if}
+</script>

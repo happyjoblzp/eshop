@@ -1,0 +1,80 @@
+{js:my97date}
+
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">货款结算单编辑</h3>
+	</header>
+
+	<form action="{url:/seller/bill_update}"  method="post" name="bill_edit">
+		<input type='hidden' name='id' />
+		<div class="module_content">
+			<fieldset>
+				<label>结算货款起止时间：</label>
+				<div class="box">
+					<input type='text' class="normal" name='start_time' readonly="readonly" pattern='date' onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" alt='请填写开始日期' title="请填写开始日期" />
+					<input type='text' class="normal" name='end_time' readonly="readonly" pattern='date' onFocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" alt='请填写结束日期' title="请填写结束日期" />
+					<input class="btn" type="button" value="点击计算结算明细" id="checkButton" onclick="checkoutFee();" />
+				</div>
+
+				<div class="box" style="padding-top:15px;">
+					<textarea name="log" disabled="disabled" style="height:150px"></textarea>
+				</div>
+				<label class="tip">根据选择日期会自动生成结算详情报告，订单必须在用户收到货完成后第[{echo:$this->_siteConfig->low_bill ? $this->_siteConfig->low_bill : 0}]天后才会计入统计</label>
+			</fieldset>
+
+			<fieldset>
+				<label>申请结算附言：</label>
+				<textarea name="apply_content" style="height:120px"></textarea>
+			</fieldset>
+
+			<fieldset>
+				<label>管理员回复：</label>
+				<textarea name="pay_content" disabled="disabled" style="height:120px"></textarea>
+			</fieldset>
+		</div>
+
+		<footer>
+			<div class="submit_link">
+				<input type="submit" class="alt_btn" value="确 定" />
+				<input type="reset" value="重 置" />
+			</div>
+		</footer>
+	</form>
+</article>
+
+<script type="text/javascript">
+//表单回填
+var formObj = new Form('bill_edit');
+formObj.init({echo:JSON::encode($this->billRow)});
+
+//存在结算单数据就要锁定已有数据
+{if:$this->billRow}
+$("[name='start_time']").prop("disabled",true);
+$("[name='end_time']").prop("disabled",true);
+$("#checkButton").hide();
+{/if}
+
+//计算结算款明细
+function checkoutFee()
+{
+	var startTime = $("[name='start_time']").val();
+	var endTime   = $("[name='end_time']").val();
+	if(!startTime || !endTime)
+	{
+		alert("请填写完整的时间段");
+		return;
+	}
+
+	$.getJSON("{url:/seller/countGoodsFee}",{"start_time":startTime,"end_time":endTime}, function(json)
+	{
+		if(json.result == 'success')
+		{
+			$("[name='log']").val(json.data);
+		}
+		else
+		{
+			alert(json.data);
+		}
+	})
+}
+</script>

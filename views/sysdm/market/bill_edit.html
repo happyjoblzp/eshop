@@ -1,0 +1,68 @@
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="home-icon fa fa-home"></i>
+			<a href="#">统计</a>
+		</li>
+		<li>
+			<a href="#">商户数据统计</a>
+		</li>
+		<li class="active">货款结算单修改</li>
+	</ul>
+</div>
+<div class="content">
+	<form action="{url:/market/bill_update}"  method="post" name="bill_edit">
+		<input type='hidden' name='id' />
+		<table class="table form-table">
+			<colgroup>
+				<col width="130px" />
+				<col />
+			</colgroup>
+			<tr>
+				<th>商户名称：</th>
+				<td><input type='text' class="form-control" name="seller_name" disabled="disabled" /></td>
+			</tr>
+			<tr>
+				<th>结算起止时间：</th>
+				<td>
+					<input type='text' class="form-control w-auto" name='start_time' alt='开始日期' title="开始日期" disabled="disabled" /> ——
+					<input type='text' class="form-control w-auto" name='end_time'  alt='结束日期' title="结束日期" disabled="disabled" />
+				</td>
+			</tr>
+			<tr>
+				<th>结算信息：</th>
+				<td><textarea class="form-control" name="log" disabled="disabled" style="height:200px"></textarea></td>
+			</tr>
+			<tr>
+				<th>申请结算附言：</th>
+				<td>
+					<textarea class="form-control" name="apply_content" disabled="disabled"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>管理员回复：</th>
+				<td>
+					<textarea class="form-control" name="pay_content" style="height:150px;"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>是否同意结算：</th>
+				<td>
+                    <label class="radio-inline">
+                        <input type="radio" name="is_pay" value="1">是
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="is_pay" value="0">否
+                    </label>
+				</td>
+			</tr>
+			<tr><th></th><td><button class='btn btn-primary' type='submit'>确 定</button></td></tr>
+		</table>
+	</form>
+</div>
+
+<script type="text/javascript">
+//表单回填
+var formObj = new Form('bill_edit');
+formObj.init({echo:JSON::encode($this->billRow)});
+</script>

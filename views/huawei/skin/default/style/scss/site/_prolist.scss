@@ -1,0 +1,147 @@
+// 调用筛选
+
+// 商品价格\品牌展示\商品属性
+.goods_tag {
+	dl {
+		border-bottom: 1px solid $cde; line-height: 50px; height: 50px;
+		dt {
+			width: 140px; font-size: 12px; font-weight: normal; float: left;
+			white-space: nowrap; overflow: hidden;
+			div {
+				width: 80px; text-align: right; margin-right: 10px; float: left;
+			}
+
+		}
+		dd {
+			margin-left: 20px; float: left;
+			a {
+				margin-right: 20px; display: inline-block; color: #999;
+				&.current {
+					color: $cca151d;
+				}
+			}
+			.condition {
+				float: right;
+				input {
+					width: 80px; border: 1px solid $cdd; padding: 0 5px; height: 22px; border-radius: 4px;
+				}
+				button {
+					margin-left: 5px; padding: 0 15px; display: inline-block;
+					line-height: 22px; height: 22px; border-radius: 2px; background: $cf7;
+					text-align: center; cursor: pointer; border: 1px solid $cde; color: #666;
+				}
+			}
+		}
+	}
+}
+
+// 商品排序展示
+.goods_sort {
+	line-height: 50px; height: 50px;
+	h3 {
+		width: 140px; font-size: 12px; font-weight: normal; float: left;
+		white-space: nowrap; overflow: hidden;
+		div {
+			width: 80px; text-align: right; margin-right: 10px; float: left;
+		}
+		span {color: $cca151d;}
+	}
+	ul {
+		margin-left: 20px; float: left;
+		li {
+			margin-right: 30px; float: left; position: relative;
+			&:after {
+				content: ""; display: block; width: 6px; height: 5px;
+				position: absolute; right: -10px; top: 19px;
+				background: $c99;
+			}
+			&:before {
+				content: ""; display: block; width: 0; height: 0;
+				position: absolute; right: -13px; top: 24px;
+				border-style: solid; border-color: $c99 transparent transparent transparent; border-width: 6px 6px 0;
+			}
+			a {
+				color: #999;
+				display: block; text-decoration: none;
+			}
+			&.asc {
+				&:after {top: 25px;}
+				&:before {
+					top: 19px;
+					border-color: transparent transparent $c99 transparent;
+					border-width:0 6px 6px;
+				}
+			}
+			&.current {
+				a {color: $cca151d;}
+				&:after {background: $cca151d;}
+				&:before {border-color: $cca151d transparent transparent transparent;}
+				&.asc:before {border-color: transparent transparent $cca151d transparent;}
+			}
+		}
+	}
+}
+// 商品排序展示
+
+// 商品列表
+.goods_list {
+	width: 100%; overflow: hidden;
+	ul {
+		@extend .cf;
+		li {
+			width: 222px; height: 362px; margin-right: 16px; margin-bottom: 20px; border: 1px solid $cde;
+			float: left; position: relative;
+			&:hover {
+				border: 1px solid $cca151d;
+				.goods_list_btnbox {display: block;}
+			}
+			a {
+				display: block; text-decoration: none; width: 100%; height: 100%; position: relative;
+			}
+			img {
+				display: block; width: 180px; height: 180px; margin: 38px auto 24px;
+			}
+			.goods_title {
+				padding: 0 20px; height: 48px; overflow: hidden;
+				span {line-height: 16px;}
+			}
+			.goods_sell_price {
+				text-align: center;
+				padding-top: 3px; color: $cca151d; line-height: 30px; font-size: 20px; font-weight: 400;
+			}
+			.goods_market_price {
+				text-align: center; height: 32px; line-height: 32px; color: #666; text-decoration: line-through;
+			}
+			.goods_list_btnbox {
+				position: absolute; left: 0; bottom: 0; height: 36px; width: 100%;
+				background: #f36f72; display: none; overflow: hidden;
+				line-height: 36px; text-align: center;
+				.add_cart {
+					height: 100%; width: 100%; font-size: 13px; color: #fff; float: left;
+				}
+				.del_fav {
+					height: 100%; width: 35%; font-size: 13px; color: #fff; float: left; background: $cca151d;
+				}
+				&:hover {
+					.add_cart {width: 65%;}
+				}
+			}
+		}
+	}
+}
+// 商品列表
+.ucenter_main,
+.main {
+    .goods_list {
+        ul {
+            li {
+                margin-right: 9px;
+            }
+        }
+    }
+}
+
+// 对不起，没有找到相关商品
+.no_tip {
+	width: 100%;clear: both;font-size: 16px;line-height: 5;text-align: center;color: $c99;
+}

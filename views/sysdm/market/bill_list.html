@@ -1,0 +1,114 @@
+{js:my97date}
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="home-icon fa fa-home"></i>
+			<a href="#">统计</a>
+		</li>
+		<li>
+			<a href="#">商户数据统计</a>
+		</li>
+		<li class="active">货款结算列表</li>
+	</ul>
+</div>
+
+<div class="content">
+	<table class="table list-table">
+		<colgroup>
+			<col width="200px" />
+			<col />
+			<col width="155px" />
+			<col width="120px" />
+			<col width="155px" />
+			<col width="100px" />
+		</colgroup>
+
+		<caption>
+			<form name="searchBill" action="{url:/}" method="get" class="form-inline">
+				<input type='hidden' name='controller' value='market' />
+				<input type='hidden' name='action' value='bill_list' />
+
+				<div class="input-group">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+		        	<input type="text" name='search[apply_time>=]' value='' class="form-control" pattern='date' onFocus="WdatePicker()" empty placeholder='起始时间' />
+				</div>
+
+				<div class="input-group">
+					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+		        	<input type="text" name='search[apply_time<=]' value='' class="form-control" pattern='date' onFocus="WdatePicker()" empty placeholder='终止时间' />
+				</div>
+
+				<select class="form-control" name="search[is_pay=]">
+					<option value="" selected="selected">结算状态</option>
+					<option value="0">未结算</option>
+					<option value="1">已结算</option>
+				</select>
+
+				<button class="btn btn-default" type="button" onclick="submitForm('bill_list');">
+                    <i class="fa fa-search"></i> 搜索
+                </button>
+
+                <button class="btn btn-default" type="button" onclick="submitForm('sellerReport');">
+                    <i class="fa fa-file-excel-o"></i> 报表CSV
+                </button>
+			</form>
+		</caption>
+
+		<thead>
+			<tr>
+				<th>订单的结算起止</th>
+				<th>申请商户</th>
+				<th>申请时间</th>
+				<th>结算状态</th>
+				<th>结算时间</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+
+		<tbody>
+            {foreach:items=$this->query->find()}
+			<tr>
+				<td>{$item['start_time']} ~ {$item['end_time']}</td>
+				<td>{$item['seller_name']}</td>
+				<td>{$item['apply_time']}</td>
+				<td>
+					{if:$item['is_pay'] == 1}
+					<span class="text-green">已结算</span>
+					{else:}
+					未结算
+					{/if}
+				</td>
+				<td>{$item['pay_time']}</td>
+				<td>
+					<a href="{url:/market/bill_edit/id/$item['id']}">
+						<i class='operator fa fa-eye'></i>
+					</a>
+
+					{if:$item['is_pay'] == 0}
+					<a href="javascript:delModel({link:'{url:/market/bill_del/id/$item['id']}'})">
+						<i class='operator fa fa-close'></i>
+					</a>
+					{/if}
+				</td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+{$this->query->getPageBar()}
+
+<script type="text/javascript">
+//表单回填
+var searchData = {echo:JSON::encode(IReq::get('search'))};
+for(var index in searchData)
+{
+	$('[name="search['+index+']"]').val(searchData[index]);
+}
+
+//修改表单提交内容
+function submitForm(action)
+{
+	$('[name="action"]').val(action);
+	formSubmit("searchBill");
+}
+</script>

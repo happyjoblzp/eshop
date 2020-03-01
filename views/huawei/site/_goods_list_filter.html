@@ -1,0 +1,135 @@
+<!-- 商品价格\品牌展示\商品属性 -->
+<section class="goods_tag">
+	<!--品牌展示-->
+	{set:$brandList = search_goods::$brandSearch}
+	{if:$brandList}
+	<dl>
+		<dt><div>品牌:</div></dt>
+		<dd id='brand_dd'>
+			<a class="current" href="{echo:search_goods::searchUrl('brand','')}">不限</a>
+			{foreach:items = $brandList}
+			<a href="{echo:search_goods::searchUrl('brand',$item['id'])}" id='brand_{$item['id']}'>{$item['name']}</a>
+			{/foreach}
+		</dd>
+	</dl>
+	{/if}
+	<!--品牌展示-->
+	<!--商品属性-->
+	{foreach:items = search_goods::$attrSearch}
+	<dl>
+		<dt><div>{$item['name']}:</div></dt>
+		<dd id='attr_dd_{$item['id']}'>
+			<a class="current" href="{echo:search_goods::searchUrl('attr['.$item["id"].']','')}">不限</a>
+			{foreach:items=$item['value'] item=$attr}
+			<a href="{echo:search_goods::searchUrl('attr['.$item["id"].']',$attr)}" id="attr_{$item['id']}_{echo:md5($attr)}">{$attr}</a>
+			{/foreach}
+		</dd>
+	</dl>
+	{/foreach}
+	<!--商品属性-->
+	<!--商品价格-->
+	<dl>
+		<dt><div>价格:</div></dt>
+		<dd id='price_dd'>
+			<a class="current" href="{echo:search_goods::searchUrl(array('min_price','max_price'),'')}">不限</a>
+			{foreach:items=search_goods::$priceSearch}
+			{set:$priceZone = explode('-',$item)}
+			<a href="{echo:search_goods::searchUrl(array('min_price','max_price'),array($priceZone[0],$priceZone[1]))}" id="{$item}">{$item}</a>
+			{/foreach}
+			<p class="condition">
+				<input type="text" name="min_price"> 至 <input type="text" name="max_price"> 元
+				<button onclick="priceLink();">确定</button>
+			</p>
+		</dd>
+	</dl>
+	<!--商品价格-->
+</section>
+<!-- 商品价格\品牌展示\商品属性 -->
+
+<!--商品排序展示-->
+<section class="goods_sort">
+	<h3><div>排序:</div></h3>
+	<ul>
+		{foreach:items=search_goods::getOrderType()}
+		<li id="order_{$key}">
+			<a href="{echo:search_goods::searchUrl(array('order','by'),array($key,search_goods::getOrderBy($key)))}">{$item}</a>
+		</li>
+		{/foreach}
+	</ul>
+</section>
+<!--商品排序展示-->
+
+<script type='text/javascript'>
+//价格跳转
+function priceLink(){
+	var minVal = $('input[name="min_price"]').val();
+	var maxVal = $('input[name="max_price"]').val();
+	if(isNaN(minVal) || isNaN(maxVal)){
+		alert('价格填写不正确');
+		return '';
+	}
+	var searchUrl = "{echo:search_goods::searchUrl(array('min_price','max_price'),array('__min_price__','__max_price__'))}";
+	searchUrl     = searchUrl.replace("__min_price__",minVal).replace("__max_price__",maxVal);
+	window.location.href = searchUrl;
+}
+
+//筛选条件按钮高亮
+$(function(){
+	//品牌模块高亮和预填充
+	{set:$brand = IFilter::act(IReq::get('brand'),'int');}
+	{if:$brand}
+	$('#brand_dd>*').removeClass('current');
+	$('#brand_{$brand}').addClass('current');
+	{/if}
+
+	//属性模块高亮和预填充
+	{set:$tempArray = IReq::get('attr')}
+	{if:$tempArray}
+		{set:$json = JSON::encode(array_map('md5',$tempArray))}
+		var attrArray = {$json};
+		for(val in attrArray)
+		{
+			if(attrArray[val])
+			{
+				$('#attr_dd_'+val+'>*').removeClass('current');
+				$('#attr_'+val+'_'+attrArray[val]).addClass('current');
+			}
+		}
+	{/if}
+
+	//价格模块高亮和预填充
+	{if:IReq::get('min_price') || IReq::get('max_price')}
+	{set:$priceId = IFilter::act(IReq::get('min_price'))."-".IFilter::act(IReq::get('max_price'))}
+	$('#price_dd>*').removeClass('current');
+	$('#{$priceId}').addClass('current');
+	$('input[name="min_price"]').val("{echo:IFilter::act(IReq::get('min_price'))}");
+	$('input[name="max_price"]').val("{echo:IFilter::act(IReq::get('max_price'))}");
+	{/if}
+
+	//排序字段
+	{set:$orderValue = IFilter::act(IReq::get('order'))}
+	{if:$orderValue}
+	$('#order_{$orderValue}').addClass('current');
+	{/if}
+
+	//顺序
+	{set:$byValue = IReq::get('by')}
+	{if:$byValue == "desc"}
+	$('#order_{$orderValue}').addClass('desc');
+	{else:}
+	$('#order_{$orderValue}').addClass('asc');
+	{/if}
+
+	//显示方式
+	{set:$showType = IReq::get('show_type');}
+	{if:$showType == "win"}
+	$('[name="goodsItems"]').attr({"class":"clearfix win"});
+	$('[name="goodsImage"]').css({"width":200,"height":200});
+	$('#winButton').addClass('active');
+	{elseif:$showType == "list"}
+	$('[name="goodsItems"]').attr({"class":"clearfix list"});
+	$('[name="goodsImage"]').css({"width":115,"height":115});
+	$('#listButton').addClass('active');
+	{/if}
+});
+</script>

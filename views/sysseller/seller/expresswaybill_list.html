@@ -1,0 +1,43 @@
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">快递公司</h3>
+	</header>
+
+	<table class="tablesorter" cellspacing="0">
+		<colgroup>
+			<col width="150px">
+			<col width="120px">
+			<col />
+			<col width="100px">
+			<col width="100px">
+		</colgroup>
+
+		<thead>
+			<tr>
+				<th>快递名称</th>
+				<th>快递代号</th>
+				<th>官网</th>
+				<th>状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{foreach:items=Api::run('getExpresswaybill')}
+			<tr>
+				<td>{$item['freight_name']}</td>
+				<td>{$item['freight_type']}</td>
+				<td><a href="{$item['url']}" target="_blank">{$item['url']}</a></td>
+				<td>
+					{if:$item['is_open'] == 1}
+					<span class="green">使用中</span>
+					{else:}
+					<span class="red">已关闭</span>
+					{/if}
+				</td>
+				<td><a href="{url:/seller/expresswaybill_edit/id/$item['id']}"><img src="{skin:images/main/icn_edit.png}" title="编辑" /></a></td>
+			</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</article>

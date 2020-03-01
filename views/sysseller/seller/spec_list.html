@@ -1,0 +1,90 @@
+{set:$seller_id = $this->seller['seller_id']}
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">规格列表</h3>
+
+		<ul class="tabs">
+			<li><input type="button" class="alt_btn" onclick="addNewSpec();" value="添加规格" /></li>
+			<li><input type="button" class="alt_btn" onclick="selectAll('id[]')" value="全选" /></li>
+			<li><input type="button" class="alt_btn" onclick="delModel();" value="批量删除" /></li>
+		</ul>
+	</header>
+
+	<form action='{url:/seller/spec_del}' method='post' name='specForm'>
+		<table class="tablesorter" cellspacing="0">
+			<colgroup>
+				<col width="40px" />
+				<col width="150px" />
+				<col width="80px" />
+				<col />
+				<col width="100px" />
+			</colgroup>
+
+			<thead>
+				<tr>
+					<th class="header"></th>
+					<th class="header">规格名称</th>
+					<th class="header">显示方式</th>
+					<th class="header">规格数据</th>
+					<th class="header">操作</th>
+				</tr>
+			</thead>
+
+			<tbody>
+                {set:$queryObj=Api::run('getListBySpec',array('is_del'=>0));$resultData=$queryObj->find()}
+                {foreach:items=$resultData}
+				<tr>
+					<td><input type="checkbox" name="id[]" value="{$item['id']}" /></td>
+					<td>{$item['name']}{echo:$item['note']?"【".$item['note']."】":"";}</td>
+					<td>{if:$item['type']==1}文字{else:}图片{/if}</td>
+					<td>
+						{set:$_specValue = JSON::decode($item['value'])}
+						{if:$_specValue}
+						{foreach:items=$_specValue item=$rs key=$tip}【{$tip}】{/foreach}
+						{/if}
+					</td>
+					<td>
+						<a href="javascript:addNewSpec({$item['id']});"><img src="{skin:images/main/icn_edit.png}" alt="修改" /></a>
+						<a href='javascript:void(0)' onclick="delModel({link:'{url:/seller/spec_del/id/$item[id]}'});"><img src="{skin:images/main/icn_del.png}" alt="删除" title="删除" /></a>
+					</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</form>
+	{$queryObj->getPageBar()}
+</article>
+
+<script type='text/javascript'>
+//添加新规格
+function addNewSpec(spec_id)
+{
+	var url = '{url:/goods/spec_edit/id/@spec_id@/seller_id/$seller_id}';
+	url = url.replace('@spec_id@',spec_id?spec_id:0);
+
+	art.dialog.open(url,{
+		id:'addSpecWin',
+	    title:'规格设置',
+	    okVal:'确定',
+	    ok:function(iframeWin, topWin){
+	    	var formObject = iframeWin.document.forms['specForm'];
+	    	if(formObject.onsubmit() == false)
+	    	{
+	    		return false;
+	    	}
+			$.post(formObject.action,$(formObject).serialize(),function(json){
+				if(json.flag == 'success')
+				{
+					window.location.reload();
+					return true;
+				}
+				else
+				{
+					alert(json.message);
+					return false;
+				}
+			},'json');
+	    }
+	});
+}
+</script>

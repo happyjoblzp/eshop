@@ -1,0 +1,234 @@
+
+.uc_head_red {
+	height: 40px;background:$cf60;line-height: 40px;color: $cff;
+	time {float: right;padding: 0 10px;}
+	h3 {padding:0 10px;font-size: 14px;}
+}
+
+.uc_info {
+	@extend .cf;
+   .user_info {
+    margin-left: 158px; overflow: hidden;
+    h2 {
+      font-size: 24px; padding: 1px 0 13px; font-weight: 400; line-height: 1;
+    }
+    .user_baseinfo {
+      li {
+				width: 29%;
+        display: inline-block; padding: 0 12px; border-left: 1px solid #dedede;
+        font-size: 14px; margin: 2px 0;
+        strong { color: $cca151d; }
+        &:nth-child(1), &:nth-child(6) {border: 0;}
+      }
+    }
+    .user_stat {
+      padding-top: 8px;
+      li {
+				width: 29%;
+        display: inline-block; padding: 0 12px; border-left: 1px solid #dedede;
+        font-size: 14px; margin: 2px 0;
+        strong { color: $cca151d; }
+        &:nth-child(1) {border: 0;}
+      }
+    }
+  }
+}
+.user_ico {
+  float: left; position: relative; width: 108px; height: 108px; padding-left: 25px;
+	img {
+    display: inline-block; width: 106px; height: 106px; border: 1px solid #dedede; border-radius: 50%;
+  }
+}
+// 个人中心所有选项的头部标题
+.uc_head {
+  background-color: $cfa; position: relative; z-index: 2;
+  padding: 0 12px 0 0; font-size: 14px; height: 40px; line-height: 40px;
+  background: $cff;border-bottom: 1px solid $cdd;
+	&.mt30 {margin-top: 30px;}
+	label {
+		display: inline-block;
+		height: 40px;
+		padding: 0 20px;
+		line-height: 40px;
+		background: $cf0;
+		color: $cff;
+		&.current {
+			background: #ca151d;border-bottom: 1px solid $cdd;
+			a, span {
+			   font-size: 15px;color: $cff;
+		    }
+		}
+	}
+	h3 {
+		float: left; font-size: 14px;background: $cf0;padding: 0 15px;height: 40px;
+		&.current{
+			background: #ca151d;border-bottom-color:$cf60;
+			a {
+			   font-size: 15px;color: $cff;
+		   }
+		}
+	}
+	.more {
+		float: right;margin-right: 15px;@include dz();
+	}
+  .money {
+    float: right; margin-right: 15px;
+    em {color: $cca151d;}
+	}
+}
+// 个人中心所有选项的头部标题
+
+// 中心表单选择查询
+.uc_form_select {
+  float: right;
+}
+// 中心表单选择查询
+
+// 自定义选择
+.custom_select {
+  margin: 5px 0; float: left; border-radius: 5px; background: #fff;
+  width: 180px; height: 30px; overflow: hidden; border: solid 1px $cea; position: relative;
+  select {
+    background: transparent; border: none; padding-left: 10px; display: block;
+    /*很关键：将默认的select选择框样式清除*/
+    appearance: none; -moz-appearance: none; -webkit-appearance: none;
+    width: 180px; height: 100%; position: relative; z-index: 3; outline: none;
+  }
+  /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+  i {
+    position: absolute; top: 1px; right: 1px; z-index: 1; background: #fff;
+    width: 30px; height: 30px;
+    font-size: 16px; display: block; line-height: 30px; text-align: center;
+  }
+}
+// 自定义选择
+
+// 个人中心表单提交按钮
+.input_sbtn {
+  // width: 108px;
+  height: 30px; padding: 0 25px; margin: 0 5px; background: #fff;
+  text-align: center; border: 1px solid $cea; border-radius: 5px;
+  &:hover {color: $cca151d; }
+}
+// 个人中心表单提交按钮
+
+.uc_table {
+	@extend .cf;margin-bottom: 15px;margin-top: 10px;
+	table {
+		width: 100%;text-align: center;
+		thead {
+			th {height: 36px;color: $c22;font-size: 14px;border-bottom: 1px solid $cdd;}
+		}
+		tbody {
+			th,td {padding:8px 20px;line-height: 1.6;}
+			tr:nth-child(2n){background: $cfa;}
+      td a:hover {color: $cca151d;}
+			h4 {
+				text-align: left;color: $blue;font-size: 14px;text-indent: 10px;position: relative;
+				&:before {
+					content: "";display: block;position: absolute;background: $cf60;width: 3px;height: 3px;left: 3px;top: 10px;
+				}
+			}
+		}
+	}
+}
+// 优惠券
+.coupon-item {
+	.style {
+		width: 100%;
+    height: 8rem;
+    position: relative;
+		display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 5%;
+		background-color: #F7DBCD;
+    color: #E5004F;
+    border: none;
+		&:after, &:before {
+			content: "";
+			height: .5rem;
+			position: absolute;
+			left: 0;
+			right: 0;
+			display: block;
+			z-index: 9;
+			background-image: linear-gradient(-45deg,#fff 25%,transparent 25%,transparent),linear-gradient(-135deg,#fff 25%,transparent 25%,transparent),linear-gradient(-45deg,transparent 75%,#fff 75%),linear-gradient(-135deg,transparent 75%,#fff 75%);
+			background-size: 1rem 1rem;
+			background-repeat: repeat-x,repeat-x;
+		}
+		&:before {
+			transform: rotate(180deg);
+			bottom: -.12rem;
+		}
+		&:after {
+			top: -.12rem;
+		}
+		.info-box {
+			flex: 1;
+    	padding: 0 3%;
+    	position: relative;
+			.nick {
+				padding: .66% 0;
+				color: #E5004F;
+			}
+			.coupon-money {
+				width: 100%;
+				display: flex;
+    		font-size: 1.2rem;
+    		align-items: center;
+				em {
+					font-size: 3.8rem;
+				}
+				.lay:last-child {
+					flex: 1;
+    			padding: 0 3%;
+    			line-height: 1.66rem;
+				}
+			}
+		}
+		.get-btn {
+			display: flex;
+    	align-items: center;
+    	justify-content: center;
+		  height: 8rem;
+    	text-align: center;
+    	color: #fff;
+    	font-size: 1.5rem;
+    	line-height: 1.35;
+			position: relative;
+			width: 28%;
+    	background-color: #f5f5f5;
+			input {
+				border: none;
+				background: none;
+				color: #E5004F;
+				width: 9rem;
+				font-size: 1.8rem;
+				word-break: break-all;
+				outline: none;
+			}
+		}
+	}
+}
+
+.uc_high_light {color: $cca151d;}
+
+.col_table {
+	@extend .cf;margin-bottom: 15px;margin-top: 10px;
+	table {
+		width: 100%;word-break:break-all;word-wrap:break-word;
+		&,td,th {border: 1px solid $cdd;}
+		th,td {padding: 8px;line-height: 1.8;}
+		th {background: $cfa;text-align: right;width: 130px;}
+	}
+}
+
+// 个人中心表格操作td
+.uc_tab_operation {
+	a {
+		width: 60px; text-align: center; display: inline-block;
+		&:hover {color: $cca151d;}
+	}
+	.striking {color: $cca151d;}
+}

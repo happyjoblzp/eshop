@@ -1,0 +1,60 @@
+{set:$resultData=$this->comment;}
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">商品评价回复</h3>
+	</header>
+
+	<form action="{url:/seller/comment_update}" method="post" name="comment_edit">
+		<input type="hidden" value="{$resultData['id']}" name="id" />
+		<div class="module_content">
+			<fieldset>
+				<label>评论人：</label>
+				<div class="box"><a href="{url:/member/member_edit/uid/$resultData['user_id']}">{$resultData['username']}</a></div>
+			</fieldset>
+
+			<fieldset>
+				<label>评价时间：</label>
+				<div class="box">{$resultData['time']}</div>
+			</fieldset>
+
+			<fieldset>
+				<label>评价商品：</label>
+				<div class="box"><a href="{url:/goods/products/id/$resultData['goods_id']}" target="_blank">{$resultData['name']}</a></div>
+			</fieldset>
+
+			<fieldset>
+				<label>评价内容：</label>
+				<div class="box">{$resultData['contents']}</div>
+			</fieldset>
+
+			{if:$resultData['img_list']}
+            <fieldset>
+                <label>评价图片：</label>
+                <div class="box">
+                {foreach:items=JSON::decode($resultData['img_list']) item=$img}
+                    <a href="{url:$img}" target="_blank"><img style="width:100px;height:100px;border:1px solid #ccc;" src="{url:$img}" /></a>
+                {/foreach}
+                </div>
+            </fieldset>
+            {/if}
+
+			<fieldset>
+				<label>评价分数：</label>
+				<div class="box">{$resultData['point']}分</div>
+			</fieldset>
+
+			<fieldset>
+				<label>回复评价：</label>
+				<textarea name='recontents' style='height:100px;'>{$resultData['recontents']}</textarea>
+				<label class="tip">卖家对买家评论的回复</label>
+			</fieldset>
+		</div>
+
+		<footer>
+			<div class="submit_link">
+				<input type="submit" class="alt_btn" value="确 定" />
+				<input type="reset" value="重 置" />
+			</div>
+		</footer>
+	</form>
+</article>

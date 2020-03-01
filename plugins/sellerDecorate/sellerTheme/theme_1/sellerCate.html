@@ -1,0 +1,42 @@
+<!--引入头部-->
+{set:include($this->sellerDecorate->viewFile('header'))}
+
+<section class="page-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="content">
+					<h1 class="page-name">{$catRow['name']}</h1>
+					<ol class="breadcrumb">
+                        {foreach:items=Api::run('getSellerCategoryByParentid',['parent_id' => $catRow['id']]) item=$second}
+                        <li><a href="{url:/site/sellerCate/id/$second['id']}">{$second['name']}</a></li>
+                        {/foreach}
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- 商品列表 -->
+<section class="products section bg-gray">
+	<div class="container">
+    	<div class="row">
+    	    {foreach:items=Api::run('getSellerCategoryExtendList',['categroy_id' => $catRow['id']],50)}
+    		<div class="col-md-4">
+    		    <a href="{url:/site/products/id/$item['id']}">
+    			<div class="product-item">
+    				<div class="product-thumb">
+    					<img class="img-responsive" src="{url:/pic/thumb/img/$item['img']/w/450/h/550}" alt="product-img" />
+    				</div>
+    				<div class="product-content">
+    					<h4>{$item['name']}</h4>
+    					<p class="price">￥{$item['sell_price']}</p>
+    				</div>
+    			</div>
+    			</a>
+    		</div>
+    		{/foreach}
+    	</div>
+	</div>
+</section>

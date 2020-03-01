@@ -1,0 +1,128 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: url("../images/login/bg.jpg") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    font-family: Arial,"Microsoft Yahei";
+    margin: 0;
+    padding: 0;
+}
+.wrap {
+    animation: 600ms linear 0s normal none 1 bounceIn;
+    margin: 180px auto 0;
+    overflow: hidden;
+    width: 250px;
+}
+h1{
+	text-align:center;
+	color:#fff;
+}
+.login ul, .login li {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.login ul {
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #2d2e30;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #ccc inset;
+    margin-bottom: 15px;
+    overflow: hidden;
+    width: 248px;
+}
+.login li {
+    border-top: 1px solid #d3d4d4;
+    padding: 5px;
+}
+.login li img {
+    vertical-align: top;
+}
+.login .input {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    font-family: Arial,"Microsoft Yahei";
+    font-size: 18px;
+    padding: 5px;
+    vertical-align: middle;
+    width: 225px;
+}
+.login .input:focus {
+    outline: 0 none;
+}
+.btn:hover {
+    background-position: 0 -40px;
+}
+.btn:active {
+    background-position: 0 -80px;
+}
+.placeholder {
+    color: #999;
+}
+@keyframes bounceIn {
+	0% {
+	    opacity: 0;
+	    transform: scale(0.3);
+	}
+	50% {
+	    opacity: 1;
+	    transform: scale(1.05);
+	}
+	70% {
+	    transform: scale(0.9);
+	}
+	100% {
+	    transform: scale(1);
+	}
+}
+@keyframes bounceIn {
+	0% {
+	    opacity: 0;
+	    transform: scale(0.3);
+	}
+	50% {
+	    opacity: 1;
+	    transform: scale(1.05);
+	}
+	70% {
+	    transform: scale(0.9);
+	}
+	100% {
+	    transform: scale(1);
+	}
+}
+
+.col-md-3.column {
+	border: 1px solid;
+	padding: 20px;
+}
+
+.container {
+	width: 300px;
+	margin-top: 100px
+}
+
+.col-md-3.column {
+	background: #fff;
+	border: 1px solid #fff;
+}
+
+footer{
+	position:absolute;
+	bottom: 0px;
+	left:0px;
+	width: 100%;
+	z-index:999;
+	background:#fff;
+	box-shadow: 0px 0px 5px #888888;
+}
+
+.breadcrumb {
+	margin-bottom: 0px;
+}
+.w700{font-weight: normal;}
+
+.btn.btn-block.btn-info {
+	height: 37px;
+}

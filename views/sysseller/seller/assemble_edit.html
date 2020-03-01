@@ -1,0 +1,124 @@
+{set:$seller_id = $this->seller['seller_id']}
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">拼团编辑</h3>
+	</header>
+
+	<form action="{url:/seller/assemble_update}"  method="post" name='assemble_edit' enctype='multipart/form-data'>
+		<input type='hidden' name='id' />
+		<div class="module_content">
+			<fieldset>
+				<label>拼团标题：</label>
+				<input type='text' name='title' pattern='required' alt='请填写团购标题' />
+			</fieldset>
+
+			<fieldset>
+				<label>是否开启：</label>
+				<div class="box">
+                    <label>
+                        <input type="radio" name="is_close" value="0" checked=checked >是
+                    </label>
+                    <label>
+                        <input type="radio" name="is_close" value="1">否
+                    </label>
+                </div>
+			</fieldset>
+
+			<fieldset>
+				<label>设置拼团商品：</label>
+				<div class="box">
+					<table class='tablesorter clear'>
+						<colgroup>
+							<col width="120px" />
+							<col />
+						</colgroup>
+
+						<input type='hidden' name='goods_id' />
+
+						<tbody id='assemble_box'>
+						</tbody>
+
+						<tfoot>
+						<tr>
+							<td colspan=2>
+								<input type='button' class='alt_btn' onclick='searchGoods({"seller_id":{$seller_id},"callback":searchGoodsCallback});' value="添加商品" />
+								<label class="tip">* 添加要拼团的商品</label>
+							</td>
+						</tr>
+						</tfoot>
+					</table>
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<label>设置拼团成团人数：</label>
+				<input type='text' class='form-control' name='limit_nums' pattern='^\d{2,}|[2-9]$' placeholder='请填写大于2的正整数值' />
+				<label class="tip">* 多少人可以成团，必须大于2以上</label>
+			</fieldset>
+
+			<fieldset>
+				<label>介绍：</label>
+				<textarea class='textarea' name='intro' style="height:80px;">{$this->assembleRow['intro']}</textarea>
+			</fieldset>
+		</div>
+
+		<footer>
+			<div class="submit_link">
+				<input type="submit" class="alt_btn" value="确 定" />
+				<input type="reset" value="重 置" />
+			</div>
+		</footer>
+	</form>
+</article>
+
+<script type='text/javascript'>
+//输入筛选商品的条件
+function searchGoodsCallback(goodsList)
+{
+	goodsList.each(function()
+	{
+		var temp = $.parseJSON($(this).attr('data'));
+		var content = {
+			"data":
+			{
+				"id":temp.goods_id,
+				"name":temp.name,
+				"img":temp.img,
+				"sell_price":temp.sell_price,
+				"img":temp.img,
+				"store_nums":temp.store_nums
+			}
+		};
+		relationCallBack(content);
+	});
+}
+
+//关联商品回调处理函数
+function relationCallBack(content,assembleImg)
+{
+	if(content)
+	{
+		$('[name="goods_id"]').val(content['data']['id']);
+		assembleImg = !assembleImg ? content['data']['img'] : assembleImg;
+		var imgUrl  = webroot(assembleImg);
+
+		var html = '<tr><th>商品名称：</th><td>'+content['data']['name']+'</td></tr>'
+				  +'<tr><th>展示图片：</th><td><img src="'+imgUrl+'" title="'+content['data']['name']+'" style="max-width:140px;" /><p><input type="file" class="file" name="img" /></p></td></tr>'
+				  +'<tr><th>拼团价格：</th><td><input type="text" class="small" name="assemble_price" pattern="float" alt="填写数字" />，目前原价：'+content['data']['sell_price']+'<label class="tip">* 设置拼团价格</label></td></tr>';
+
+		$('#assemble_box').html(html);
+	}
+}
+
+jQuery(function()
+{
+	//关联商品信息
+	{if:isset($this->assembleRow['goodsRow'])}
+	relationCallBack({$this->assembleRow['goodsRow']},"{$this->assembleRow['img']}");
+	{/if}
+
+	//表单回填
+	var formObj = new Form('assemble_edit');
+	formObj.init({echo:JSON::encode($this->assembleRow)});
+});
+</script>

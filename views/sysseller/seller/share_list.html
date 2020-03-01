@@ -1,0 +1,150 @@
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">共享商品列表</h3>
+		<ul class="tabs">
+			<li><input type="button" class="alt_btn" onclick="filterResult();" value="检索" /></li>
+			<li><input type="button" class="alt_btn" onclick="selectAll('id[]');" value="全选" /></li>
+			<li><input type="button" class="alt_btn" onclick="copyGoods();" value="复制商品" title="复制后可以销售此商品" /></li>
+		</ul>
+	</header>
+
+	<form action="{url:/seller/goods_copy}" method="post" name="goodsForm">
+		<table class="tablesorter" cellspacing="0">
+			<colgroup>
+				<col width="25px" />
+				<col />
+				<col width="250px" />
+				<col width="90px" />
+				<col width="90px" />
+				<col width="90px" />
+			</colgroup>
+
+			<thead>
+				<tr>
+					<th class="header"></th>
+					<th class="header">商品名字</th>
+					<th class="header">分类</th>
+					<th class="header">销售价</th>
+					<th class="header">库存</th>
+					<th class="header">操作</th>
+				</tr>
+			</thead>
+
+			<tbody>
+                {foreach:items=$this->query->find()}
+				<tr>
+					<td><input name="id[]" type="checkbox" value="{$item['id']}" /></td>
+					<td><img src='{url:/pic/thumb/img/$item[img]/w/100/h/100}' class="ico" /><a href="javascript:jumpUrl('{$item['is_del']}','{url:/site/products/id/$item[id]}')" title="{$item['name']}">{$item['name']}</a></td>
+					<td>
+						{set:$catName = array()}
+                        {foreach:items=Api::run('getCategoryExtendNameByCategoryid',array('id'=>$item["id"])) item=$catData}
+                        {set:$catName[] = $catData['name']}
+                        {/foreach}
+                        {echo:join(',',$catName)}
+					</td>
+					<td>{$item['sell_price']}</td>
+					<td>{$item['store_nums']}</td>
+					<td>
+						<a href="javascript:copyGoods({$item['id']});"><img src="{skin:images/main/icn_new_article.png}" title="复制商品" /></a>
+					</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+	</form>
+	{$this->query->getPageBar()}
+</article>
+
+<script type="text/html" id="filterTemplate">
+<form action="{url:/}" method="get" name="filterForm">
+	<input type='hidden' name='controller' value='seller' />
+	<input type='hidden' name='action' value='share_list' />
+
+	<div class="module_content">
+		<fieldset>
+			<label>商品名称</label>
+			<input name="search[go.name=]" value="" type="text" />
+		</fieldset>
+
+		<fieldset>
+			<label>商品货号</label>
+			<input name="search[go.goods_no=]" value="" type="text" />
+		</fieldset>
+
+		<fieldset>
+			<label>商品分类</label>
+			<div class="box">
+				<span id="__categoryBox" style="margin-bottom:8px"></span>
+				<input type="button" class="alt_btn" name="_goodsCategoryButton" value="设置分类" />
+			</div>
+		</fieldset>
+	</div>
+</form>
+</script>
+{set:plugin::trigger('goodsCategoryWidget',array("name" => "search[ce.category_id=]"))}
+
+<script type="text/javascript">
+//检索商品
+function filterResult()
+{
+	var goodsHeadHtml = template.render('filterTemplate');
+	art.dialog(
+	{
+		"init":function()
+		{
+			var filterPost = {echo:JSON::encode(IReq::get('search'))};
+			var formObj = new Form('filterForm');
+			for(var index in filterPost)
+			{
+				formObj.setValue("search["+index+"]",filterPost[index]);
+			}
+		},
+		"title":"检索条件",
+		"content":goodsHeadHtml,
+		"okVal":"立即检索",
+		"ok":function(iframeWin, topWin)
+		{
+			iframeWin.document.forms[0].submit();
+		}
+	});
+}
+
+//商品详情的跳转连接
+function copyGoods(idVal)
+{
+	if(!idVal)
+	{
+		var idString = [];
+		$('input:checkbox[name="id[]"]:checked').each(function(i)
+		{
+			idString.push(this.value);
+		});
+		idVal = idString.join(',');
+	}
+
+	if(idVal)
+	{
+		$.get("{url:/seller/goods_copy}",{"id":idVal},function(content)
+		{
+			if(content == 'success')
+			{
+				window.location.href = "{url:/seller/goods_list}";
+			}
+			else
+			{
+				alert(content);
+			}
+		});
+	}
+	else
+	{
+		alert("请选择您要操作的商品");
+	}
+}
+
+//商品详情的跳转连接
+function jumpUrl(is_del,url)
+{
+	is_del == 0 ? window.open(url) : alert("该商品没有上架无法查看");
+}
+</script>

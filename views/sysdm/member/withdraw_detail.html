@@ -1,0 +1,92 @@
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="home-icon fa fa-home"></i>
+			<a href="#">会员</a>
+		</li>
+		<li>
+			<a href="#">提现管理</a>
+		</li>
+		<li class="active">提现申请</li>
+	</ul>
+</div>
+<div class="content">
+	<div class="row bg-yellow tips">
+		<ul>
+			<li>先修改提现状态，确认扣款成功后，再通知财务人员给申请提现用户打款</li>
+		</ul>
+	</div>
+	<form action='{url:/member/withdraw_status}' method='post' name='withdraw_detail'>
+		<input type='hidden' name='id' value='' />
+		<table class="table form-table">
+			<colgroup>
+				<col width="130px" />
+				<col />
+			</colgroup>
+
+			<tr>
+				<th>会员名称：</th>
+				<td>{$this->userRow['username']}</td>
+			</tr>
+			<tr>
+				<th>真实姓名：</th>
+				<td>{$this->userRow['true_name']}</td>
+			</tr>
+			<tr>
+				<th>当前余额：</th>
+				<td>{$this->userRow['balance']}</td>
+			</tr>
+			<tr>
+				<th>收款人姓名：</th>
+				<td>{$this->withdrawRow['name']}</td>
+			</tr>
+			<tr>
+				<th>提现金额：</th>
+				<td>{$this->withdrawRow['amount']}</td>
+			</tr>
+			<tr>
+				<th>申请时间：</th>
+				<td>{$this->withdrawRow['time']}</td>
+			</tr>
+			<tr>
+				<th>备注：</th>
+				<td>{$this->withdrawRow['note']}</td>
+			</tr>
+			<tr>
+				<th>状态：</th>
+				<td>{echo:AccountLog::getWithdrawStatus($this->withdrawRow['status'])}</td>
+			</tr>
+
+			{if:$this->withdrawRow['status']==0}
+			<tr>
+				<th>修改状态：</th>
+				<td>
+					<label class='radio-inline'><input type='radio' name='status' checked='checked'  value='-1' />{echo:AccountLog::getWithdrawStatus(-1)}</label>
+					<label class='radio-inline'><input type='radio' name='status' value='2' />{echo:AccountLog::getWithdrawStatus(2)}</label>
+					<p class="help-block">当选择 “成功” 状态后，用户的余额会自动被扣除，请确保用户余额被扣除成功后，您的财务人员再通过线下转账汇款等方式进行汇款操作</p>
+				</td>
+			</tr>
+			{/if}
+			<tr>
+				<th>回复用户：</th>
+				<td>
+					<textarea class="form-control" rows="3" name='re_note' {if:$this->withdrawRow['status']!=0}disabled='disabled'{/if}></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th></th>
+				<td>
+					{if:$this->withdrawRow['status']==0}
+					<button class='btn btn-primary' type="submit">修改</button>
+					{/if}
+					<a class='btn btn-default' href='{url:/member/withdraw_list}'>返回列表</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<script type='text/javascript'>
+	var formObj = new Form('withdraw_detail');
+	formObj.init({echo:JSON::encode($this->withdrawRow)});
+</script>

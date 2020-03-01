@@ -1,0 +1,89 @@
+{js:my97date}
+<article class="module width_full">
+	<header>
+		<h3 class="tabs_involved">订单列表</h3>
+		<ul class="tabs">
+		    <li><input type="button" class="alt_btn" onclick="art.dialog.open('{url:/order/order_code_check/seller_id/$this->seller['seller_id']}',{title:'验证码核销',id:'order_code_check'});" value="验证码核销" /></li>
+			<li><input type="button" class="alt_btn" onclick="window.open('{url:/seller/expresswaybill_list}')" value="快递单配置" /></li>
+			<li><input type="button" class="alt_btn" onclick="searchOrder({'submit':filterResult,'data':'{$searchParam}','seller_id':{$seller_id}});" value="检索" /></li>
+			<li><input type="button" class="alt_btn" onclick="window.open('{url:/seller/order_report/?$searchParam}')" value="导出Excel" /></li>
+		</ul>
+	</header>
+
+	<table class="tablesorter" cellspacing="0">
+		<colgroup>
+			<col width="145px" />
+			<col width="85px" />
+			<col width="115px" />
+			<col width="105px" />
+			<col width="105px" />
+			<col width="105px" />
+			<col width="155px" />
+			<col width="75px" />
+			<col />
+		</colgroup>
+
+		<thead>
+			<tr>
+				<th>订单号</th>
+				<th>收货人</th>
+				<th>联系电话</th>
+				<th>配送状态</th>
+				<th>支付状态</th>
+				<th>订单状态</th>
+				<th>下单时间</th>
+				<th>打印</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{foreach:items = $this->orderHandle->find()}
+			<tr>
+				<td title="{$item['order_no']}" name="orderStatusColor{$item['status']}"><a href="{url:/seller/order_show/id/$item[id]}">{$item['order_no']}</a></td>
+				<td title="{$item['accept_name']}">{$item['accept_name']}</td>
+				<td title="{$item['mobile']}">{$item['mobile']}</td>
+				<td name="disStatusColor{$item['distribution_status']}">{echo:Order_class::getOrderDistributionStatusText($item)}</span></td>
+				<td name="payStatusColor{$item['pay_status']}">
+					{echo:Order_class::getOrderPayStatusText($item)}
+				</td>
+				<td>{echo:order_class::orderStatusText(order_class::getOrderStatus($item))}</td>
+				<td title="{$item['create_time']}">{$item['create_time']}</td>
+				<td>
+					<span class="prt" title="购物清单打印" onclick="window.open('{url:/order/shop_template/id/$item['id']/seller_id/$seller_id}');">购</span>
+					<span class="prt" title="配货单打印" onclick="window.open('{url:/order/pick_template/id/$item['id']/seller_id/$seller_id}');">配</span>
+					<span class="prt" title="联合打印" onclick="window.open('{url:/order/merge_template/id/$item['id']/seller_id/$seller_id}');">合</span>
+					<span class="prt" title="发货和快递单打印" onclick="window.open('{url:/order/expresswaybill_template/id/$item['id']/seller_id/$seller_id}');">递</span>
+				</td>
+				<td>
+					<a href="{if:Order_class::isGoDelivery($item)}{url:/seller/order_deliver/id/$item[id]}{else:}javascript:alert('订单不满足发货条件，请检查订单状态');{/if}"><img class="operator" src="{skin:images/main/icn_jump_back.png}" title="立即发货" alt="立即发货" /></a>
+					<a href="{url:/seller/order_show/id/$item[id]}"><img title="订单详情" alt="订单详情" src="{skin:images/main/icn_settings.png}" /></a>
+				</td>
+			</tr>
+		   {/foreach}
+		</tbody>
+	</table>
+	{$this->orderHandle->getPageBar()}
+</article>
+
+<script type='text/javascript'>
+//检索商品
+function filterResult(iframeWin)
+{
+	var searchForm   = iframeWin.document.body;
+	var searchString = $(searchForm).find("form").serialize();
+	var jumpUrl      = creatUrl("/seller/order_list");
+	jumpUrl         += jumpUrl.indexOf("?") == -1 ? "?"+searchString : "&"+searchString;
+	window.location.href = jumpUrl;
+}
+
+//DOM加载结束
+$(function(){
+	//高亮色彩
+	$('[name="payStatusColor1"]').addClass('green');
+	$('[name="disStatusColor1"]').addClass('green');
+	$('[name="orderStatusColor3"]').addClass('red');
+	$('[name="orderStatusColor4"]').addClass('red');
+	$('[name="orderStatusColor5"]').addClass('green');
+});
+</script>

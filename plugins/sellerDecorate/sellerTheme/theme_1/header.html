@@ -1,0 +1,29 @@
+<link rel="stylesheet" type="text/css" href="{echo:__WEBPATH__}plugins/slick-carousel/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="{echo:__WEBPATH__}plugins/slick-carousel/slick/slick-theme.css"/>
+<link rel="stylesheet" type="text/css" href="{echo:__WEBPATH__}css/style.css"/>
+
+<!-- 主菜单导航 -->
+<section class="menu">
+	<nav class="navbar navigation">
+	    <div class="container">
+	        <div class="navbar-header">
+	            <h2 class="menu-title">主菜单</h2>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">导航菜单</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse text-center">
+                <ul class="nav navbar-nav">
+                    <li><a href="{url:/site/home/id/$seller_id}">首页</a></li>
+                    {foreach:items=Api::run('getGuideList',$seller_id)}
+                    <li><a href="{url:$item[link]/id/$seller_id}">{$item['name']}</a></li>
+                    {/foreach}
+                </ul>
+            </div>
+	    </div>
+	</nav>
+</section>
