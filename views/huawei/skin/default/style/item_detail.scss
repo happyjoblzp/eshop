@@ -1,0 +1,277 @@
+@import './base-custom.scss';
+
+
+.swiper-container {
+    --swiper-navigation-color: $main-color;
+    /* 单独设置按钮颜色 */
+}
+
+.item-detail-main {
+    .item-title-wrap {
+        margin-bottom: 20px;
+
+        padding: {
+            left: 30px;
+            bottom: 20px;
+        }
+
+        border: {
+            bottom: 1px solid $border-color;
+            top: 2px solid $sub-color;
+        }
+
+        .attrs {
+            font-size: 12px;
+
+            span {
+                margin-right: 15px;
+            }
+        }
+
+    }
+
+    .item-sales-info-wrap {
+        .images-wrap {
+
+            padding: 10px;
+
+            .swiper-slide {
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    width: 100%;
+
+                }
+            }
+
+            .main-image {
+                border: 1px solid $border-color;
+                padding: 10px;
+                min-height: 300px;
+
+                .swiper-slide {
+                    height: 100%;
+                }
+            }
+
+            .sub-image-wrap {
+                // height: 120px;
+                margin-top: 20px;
+
+                .swiper-slide {
+                    border: 2px solid transparent;
+                    height: 100%;
+                }
+
+                .sub-image-active {
+                    border-color: $main-color;
+                }
+            }
+        }
+
+        .sales-wrap {
+            font-size: 14px;
+
+            .row {
+                margin-bottom: 15px;
+            }
+
+            .item-label {
+                text-align: right;
+                white-space: nowrap;
+            }
+
+            $price-weight : 1.5em;
+
+
+            .price-wrap {
+                margin: {
+                    top: 10px;
+                    bottom: 30px;
+                }
+
+                line-height: $price-weight;
+
+                .item-label {
+                    color: $sub-color;
+                    font-size: 1.3em;
+                }
+
+                .price {
+                    color: $main-color;
+                    font-size: 1.5em;
+                }
+            }
+
+            .buy-count-wrap {
+                $inpuheight: 30px;
+
+                .item-label {
+                    line-height: $inpuheight;
+                }
+
+                .item-input {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+
+                    button {
+                        width: 30px;
+                        height: $inpuheight;
+                        border: 1px solid $border-color;
+
+                        &.btn-subtract {
+                            border-right: none;
+                        }
+
+                        &.btn-add {
+                            border-left: none;
+                        }
+                    }
+
+                    .count-input {
+                        text-align: center;
+                        width: 90px;
+                        height: $inpuheight;
+                        border: 1px solid $border-color;
+
+                        border-radius: 0;
+                        ;
+                    }
+                }
+            }
+
+            .buy-btns {
+                margin-top: 80px;
+
+                .btn-wrap {
+
+                    // &:nth-of-type(1){
+                    //     text-align: right;
+                    // }
+                    // &:nth-of-type(2){
+                    //     text-align: left;
+                    // }
+                    button {
+                        margin: 0 15px;
+
+                        &:hover {
+                            background: $sub-color;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .item-detail-info {
+        margin-top: 30px;
+
+        .nav-tabs {
+            margin: 0 15px;
+
+            li.active {
+                a {
+                    border-color: transparent;
+                    color: #fff !important;
+                    background-color: $main-color;
+                }
+            }
+
+            a {
+                color: $main-color;
+            }
+        }
+
+        .tab-content {
+            margin: 0 15px;
+            border: 1px solid $border-color;
+            border-top: none;
+
+            .tab-pane {
+                padding: 30px 15px 20px 15px;
+                height: 350px;
+                overflow-y: scroll;
+
+                p {
+                    font-size: 14px;
+                    line-height: 1.5;
+                }
+            }
+        }
+    }
+
+    .recommend-wrap {
+        // border: 1px solid $border-color;
+        margin: 40px 0;
+
+        h4 {
+            font-size: 26px;
+            line-height: 2;
+        }
+
+        // height: $catlist-height;
+        border-bottom: 1px solid $border-color;
+
+        &:last-of-type {
+            border-bottom: none;
+        }
+
+        .col-item {
+            position: relative;
+            // height: $catlist-height;
+            border-right: 1px solid $border-color;
+
+            @include respond-to(smmax) {
+                border-right: none;
+            }
+
+            &:last-of-type {
+                border-right: none;
+            }
+
+            .item-item-title {
+                color: $main-color;
+                font-size: 20px;
+
+                margin: {
+                    top: 20px;
+                    bottom: 20px;
+                }
+
+            }
+
+            .item-item-content {
+                text-align: center;
+
+                margin: {
+                    bottom: 20px;
+                }
+
+                .price-wrap {
+                    font-size: 16px;
+                    color: $main-color;
+                }
+
+                .btns-wrap {
+                    margin-top: 10px;
+
+                    a {
+                        &:hover {
+                            text-decoration: underline;
+                        }
+
+                        font-size: 12px;
+                        color: $main-color;
+                        margin-right:20px;
+                    }
+                }
+            }
+
+        }
+    }
+}

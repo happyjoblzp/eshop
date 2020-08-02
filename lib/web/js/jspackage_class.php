@@ -23,6 +23,10 @@ class IJSPackage
 				'jquery/jquery-1.12.4.min.js',
 			)
 		),
+		'bootstrap' => array(
+			'js' => 'bootstrap/js/bootstrap.min.js',
+			'css' => 'bootstrap/css/bootstrap.min.css'
+		),
 
 		'form' => array('js' => 'form/form.js'),
 

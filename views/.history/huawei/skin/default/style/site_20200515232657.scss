@@ -1,0 +1,17 @@
+$font-stack: "微软雅黑";
+$primary-color: #333;
+@import "./base-custom.scss";
+
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+}
+
+
+.top_menu {
+    background: {
+        color: $main-color;
+    }
+
+    width:100%;
+}

@@ -1,0 +1,6 @@
+@import "./rma.scss";
+
+
+.repair-main {
+    @extend .rma-main;
+}

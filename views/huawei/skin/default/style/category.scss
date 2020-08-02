@@ -1,0 +1,189 @@
+@import "./base-custom.scss";
+$color-link:#2e97db;
+
+.category-main {
+    
+    .category-list-wrap {
+        .category-list {
+            list-style: none;
+            padding: 10px 0 40px 0;
+            box-sizing: border-box;
+            min-height: 400px;
+            border: 1px solid $border-color;
+
+            margin: {
+                right: 40px;
+            }
+
+            h2 {
+                padding: 0 15px;
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+
+            $category-list-item-height:45px;
+
+            .category-list-item {
+                padding: 0 15px;
+                min-height: $category-list-item-height;
+                line-height: 1.2;
+                font-size: 15px;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                cursor: pointer;
+                color: $main-color;
+
+                span {
+                    display: inline-block;
+                    padding: 10px 20px 10px 0;
+                }
+
+                a {
+                    @include fulllink();
+                    padding: 0 15px;
+                    box-sizing: border-box;
+
+                    &::after {
+                        position: relative;
+                        content: "";
+                        display: block;
+                        height: 1px;
+                        width: 100%;
+                        background: $border-color;
+                        top: 0;
+                        left: 0;
+                    }
+
+                }
+
+                &:last-of-type {
+                    a {
+                        &::before {
+                            position: relative;
+                            content: "";
+                            display: block;
+                            height: 1px;
+                            width: 100%;
+                            background: $border-color;
+                            top: 100%;
+                            left: 0;
+                            margin-top: -1px;
+                        }
+                    }
+                }
+
+                &:after {
+                    content: ">";
+                    position: absolute;
+                    right: 15px;
+                    top: 50%;
+                    margin-top: -($category-list-item-height/2);
+                    font-size: 20px;
+                    line-height: $category-list-item-height;
+                    color: $main-color;
+                }
+
+
+
+                &:hover {
+                    color: #fff;
+                    background: $main-color;
+
+                    &:after {
+                        color: #fff;
+                    }
+
+                    a {
+                        &::after {
+                            display: none;
+                        }
+
+                        &::before {
+                            display: none;
+                        }
+                    }
+                }
+
+                &.active {
+                    color: #fff;
+
+
+                    background: $main-color;
+
+                    &:after {
+                        color: #fff;
+                    }
+
+                    a {
+                        &::after {
+                            display: none;
+                        }
+
+                        &::before {
+                            display: none;
+                        }
+                    }
+                }
+
+                a {
+                    display: block;
+                    height: 100%;
+                }
+            }
+        }
+    }
+
+    .item-list {
+        min-height: 400px;
+
+        .row {
+            margin: {
+                bottom: 20px;
+            }
+        }
+
+        .item-list-item {
+            position: relative;
+            padding: 0 20px;
+
+            h3 {
+                font-size: 16px;
+            }
+
+            .item-image-wrap {
+                text-align: center;
+
+                img {
+                    max-width: 100%;
+                }
+            }
+
+            .item-title {
+                font-size: 14px;
+                line-height: 1.3;
+                @include hiddentext(55px)
+            }
+
+
+            .item-prices {
+                text-align: center;
+
+                .item-proprice {
+                    font-size: 18px;
+                }
+
+                .item-price {
+                    font-size: 14px;
+                    text-decoration: line-through;
+                }
+            }
+
+            .item-link {
+                @include fulllink()
+            }
+        }
+    }
+}

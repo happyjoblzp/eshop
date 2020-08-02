@@ -1,0 +1,85 @@
+@import "./base-custom.scss";
+
+.rma-main {
+    .rma-title {
+        margin-top: 20px;
+
+        h2 {
+            margin: 0;
+            color: $main-color;
+        }
+    }
+
+    .form-block {
+
+        margin-top: 40px;
+
+        .form-line-title {
+            line-height: 2;
+            margin-bottom: 30px;
+            border-bottom: 1px solid $sub-color
+        }
+
+        .form-line {
+            margin-bottom: 20px;
+
+            @include respond-to(mdmax) {
+                margin-bottom: 0;
+            }
+        }
+
+        .form-inline {
+            @include respond-to(mdmax) {
+                margin-bottom: 20px;
+            }
+        }
+
+        $input-height:34px;
+
+        .form-group {
+            width: 100%;
+
+            label {
+                line-height: $input-height;
+                vertical-align: top;
+                width: 20%;
+                margin-right: 5%;
+                text-align: right;
+                white-space: nowrap;
+
+
+                @include respond-to(smmax) {
+                    text-align: left;
+                }
+            }
+
+            .form-control {
+                width: 70%;
+
+                @include respond-to(smmax) {
+                    width: 100%;
+                }
+            }
+        }
+
+        &.service-info {
+            textarea {
+                width: 100% !important;
+            }
+        }
+
+
+
+    }
+
+    .submit-btn-wrap {
+
+        text-align: center;
+
+        margin: {
+            top: 50px;
+            bottom: 50px;
+        }
+    }
+
+}

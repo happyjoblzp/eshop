@@ -1,0 +1,196 @@
+
+@import "./base-custom.scss";
+
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+}
+
+$catlist-height:270px;
+
+.main-banner {
+    height: 300px;
+    background: $main-color;
+
+    @include respond-to(smmax) {
+        height: 200px;
+    }
+    @include respond-to(xsmax) {
+        height: 150px;
+    }
+}
+
+
+#category {
+    margin-top: 30px;
+
+    .head {
+        margin: 30px 0;
+        color: $main-color;
+        position: relative;
+
+
+        .swiper-pagination {
+            .swiper-pagination-bullet {
+                margin: 0 8px;
+                width: 12px;
+                height: 12px;
+
+                &:focus {
+                    outline: none;
+                }
+            }
+
+            .swiper-pagination-bullet-active {
+                background: $main-color;
+            }
+
+            bottom: 10px;
+            left: 150px;
+
+        }
+    }
+
+    .catlist {
+        border: 1px solid $border-color;
+
+        .row {
+            min-height: $catlist-height;
+            border-bottom: 1px solid $border-color;
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+
+            .col-item {
+                position: relative;
+                min-height: $catlist-height;
+                border-right: 1px solid $border-color;
+
+                @include respond-to(smmax) {
+                    border-right: none;
+                }
+
+
+
+                &:last-of-type {
+                    border-right: none;
+                }
+
+                .cat-item-title {
+                    color: $main-color;
+                    font-size: 20px;
+
+                    margin: {
+                        top: 20px;
+                        bottom: 40px;
+                    }
+
+                }
+
+
+                .cat-item-content {
+                    text-align: center;
+
+                    img {
+                        max-width: 90%;
+                    }
+                }
+
+                a {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                    z-index: 10;
+                }
+            }
+        }
+    }
+}
+
+#recommend {
+    margin-top: 30px;
+
+    .head {
+        margin: 30px 0;
+        color: $main-color;
+    }
+
+    .itemlist {
+        border: 1px solid $border-color;
+
+        .row {
+            // height: $catlist-height;
+            border-bottom: 1px solid $border-color;
+
+            &:last-of-type {
+                border-bottom: none;
+            }
+
+            .col-item {
+                position: relative;
+                // height: $catlist-height;
+                border-right: 1px solid $border-color;
+
+                @include respond-to(smmax) {
+                    border-right: none;
+                }
+
+                &:last-of-type {
+                    border-right: none;
+                }
+
+                .item-item-title {
+                    color: $main-color;
+                    font-size: 20px;
+
+                    margin: {
+                        top: 20px;
+                        bottom: 20px;
+                    }
+
+                }
+
+                .item-item-content {
+                    text-align: center;
+
+                    margin: {
+                        bottom: 20px;
+                    }
+
+                    .price-wrap {
+                        font-size: 16px;
+                        color: $main-color;
+                    }
+
+                    .btns-wrap {
+                        margin-top: 10px;
+
+                        a {
+                            &:hover {
+                                text-decoration: underline;
+                            }
+                            &.btn{
+                                color: #fff;
+                            }
+                            font-size: 12px;
+                            color: $main-color;
+                            margin-right:20px;
+                        }
+                    }
+                }
+
+
+            }
+        }
+    }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    &::after {
+        color: $main-color;
+    }
+}
